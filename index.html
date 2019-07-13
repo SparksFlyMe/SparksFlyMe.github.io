@@ -530,62 +530,19 @@
       
         
           
-            <h3 id="自从有了Mybatis加强版Mybatis-再也不用写那么复杂麻烦的xml配置文件了！但是偶尔也有需求还得用xml，对于Mybatis的foreach也是经常用到的，但是每次都是从项目里粘贴复制、修修改改就用，对于其具体使用理解也是模模糊糊，导致有时用到的时候遇到各种问题，此文就针对Mybatis的foreach做个记录，以便更透彻的理解与使用。"><a href="#自从有了Mybatis加强版Mybatis-再也不用写那么复杂麻烦的xml配置文件了！但是偶尔也有需求还得用xml，对于Mybatis的foreach也是经常用到的，但是每次都是从项目里粘贴复制、修修改改就用，对于其具体使用理解也是模模糊糊，导致有时用到的时候遇到各种问题，此文就针对Mybatis的foreach做个记录，以便更透彻的理解与使用。" class="headerlink" title="自从有了Mybatis加强版Mybatis,再也不用写那么复杂麻烦的xml配置文件了！但是偶尔也有需求还得用xml，对于Mybatis的foreach也是经常用到的，但是每次都是从项目里粘贴复制、修修改改就用，对于其具体使用理解也是模模糊糊，导致有时用到的时候遇到各种问题，此文就针对Mybatis的foreach做个记录，以便更透彻的理解与使用。"></a>自从有了Mybatis加强版Mybatis,再也不用写那么复杂麻烦的xml配置文件了！但是偶尔也有需求还得用xml，对于Mybatis的foreach也是经常用到的，但是每次都是从项目里粘贴复制、修修改改就用，对于其具体使用理解也是模模糊糊，导致有时用到的时候遇到各种问题，此文就针对Mybatis的foreach做个记录，以便更透彻的理解与使用。</h3><p>foreach标签主要用于构建in条件，它可以在sql中对集合进行迭代，通常可以将之用到批量删除、添加等操作中，示例如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"getRequestLogList"</span> parameterType=<span class="string">"java.util.HashMap"</span> resultType=<span class="string">"RequestLog"</span>&gt;  </span><br><span class="line">        SELECT * FROM USER request_log  </span><br><span class="line">        &lt;where&gt;</span><br><span class="line">            &lt;<span class="keyword">if</span> test=<span class="string">"sessionIdList !=null and sessionIdList.size &gt; 0"</span>&gt;  </span><br><span class="line">                <span class="function">and sessionId <span class="title">in</span> <span class="params">(  </span></span></span><br><span class="line"><span class="function"><span class="params">                &lt;foreach collection=<span class="string">"sessionIdList"</span> item=<span class="string">"item"</span> index=<span class="string">"index"</span>   </span></span></span><br><span class="line"><span class="function"><span class="params">                    separator=<span class="string">","</span>&gt; #&#123;item&#125; &lt;/foreach&gt;  </span></span></span><br><span class="line"><span class="function"><span class="params">                )</span>  </span></span><br><span class="line"><span class="function">            &lt;/<span class="keyword">if</span>&gt;  </span></span><br><span class="line"><span class="function">        &lt;/where&gt;  </span></span><br><span class="line"><span class="function"> &lt;/select&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>加入我们输入的参数为    Long sessionIdList[] = {1L, 2L, 4L};    那么对应执行的sql就是 ：</p>
-<blockquote>
-<p> SELECT * FROM USER request_log  where sessionId in (1, 2, 4);</p>
-</blockquote>
-<p>foreach元素的属性主要有 item，index，collection，open，separator，close。</p>
-<ul>
-<li><p>​    item：表示集合中每一个元素进行迭代时的别名，</p>
-</li>
-<li><p>​    index：指 定一个名字，用于表示在迭代过程中，每次迭代到的位置，</p>
-</li>
-<li><p>​    open：表示该语句以什么开始，</p>
-</li>
-<li><p>​    separator：表示在每次进行迭代之间以什么符号作为分隔 符，</p>
-</li>
-<li><p>​    close：表示以什么结束。</p>
-</li>
-</ul>
-<p>在使用foreach的时候最关键的也是最容易出错的就是collection属性，该属性是必须指定的，但是在不同情况 下，该属性的值是不一样的，主要有一下3种情况：</p>
-<ol>
-<li>​     如果传入的是单参数且参数类型是一个List的时候，collection属性值为list</li>
-<li>​     如果传入的是单参数且参数类型是一个array数组的时候，collection的属性值为array</li>
-<li>​     如果传入的参数是多个的时候，我们就需要把它们封装成一个Map了，当然单参数也可</li>
-</ol>
-<h5 id="1、collection属性为List"><a href="#1、collection属性为List" class="headerlink" title="1、collection属性为List"></a>1、collection属性为List</h5><p>方法调用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Area&gt; <span class="title">findUserListByIdList</span><span class="params">(List&lt;Long&gt; idList)</span> </span>&#123;  </span><br><span class="line">       <span class="keyword">return</span> getSqlSession().findUserListByIdList(idList); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对应的mapper：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"findUserListByIdList"</span> parameterType=<span class="string">"java.util.ArrayList"</span> resultType=<span class="string">"User"</span>&gt; </span><br><span class="line">    select * from user user  </span><br><span class="line">    &lt;where&gt;  </span><br><span class="line">        user.<span class="function">ID <span class="title">in</span> <span class="params">(  </span></span></span><br><span class="line"><span class="function"><span class="params">        &lt;foreach  collection=<span class="string">"list"</span>  item=<span class="string">"guard"</span> index=<span class="string">"index"</span> </span></span></span><br><span class="line"><span class="function"><span class="params">            separator=<span class="string">","</span>&gt; #&#123;guard&#125; &lt;/foreach&gt;  </span></span></span><br><span class="line"><span class="function"><span class="params">        )</span>  </span></span><br><span class="line"><span class="function">    &lt;/where&gt;  </span></span><br><span class="line"><span class="function">&lt;/select&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>即单独传入list时，foreach中的collection必须是 <strong>list</strong>，不管变量的具体名称是什么。比如这里变量名为idList， collection却是List。</p>
-<h5 id="2、collection属性为array"><a href="#2、collection属性为array" class="headerlink" title="2、collection属性为array"></a>2、collection属性为array</h5><p>方法调用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Area&gt; <span class="title">findUserListByIdList</span><span class="params">(<span class="keyword">int</span>[] ids)</span> </span>&#123;  </span><br><span class="line">      <span class="keyword">return</span> getSqlSession().findUserListByIdList(ids);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对应的mapper：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"findUserListByIdList"</span> parameterType=<span class="string">"java.util.HashList"</span> resultType=<span class="string">"User"</span>&gt;  </span><br><span class="line">    select * from user user  </span><br><span class="line">    &lt;where&gt;  </span><br><span class="line">        user.<span class="function">ID <span class="title">in</span> <span class="params">(  </span></span></span><br><span class="line"><span class="function"><span class="params">        &lt;foreach collection=<span class="string">"array"</span> item=<span class="string">"guard"</span> index=<span class="string">"index"</span>   </span></span></span><br><span class="line"><span class="function"><span class="params">            separator=<span class="string">","</span>&gt; #&#123;guard&#125; &lt;/foreach&gt;  </span></span></span><br><span class="line"><span class="function"><span class="params">        )</span>  </span></span><br><span class="line"><span class="function">    &lt;/where&gt;  </span></span><br><span class="line"><span class="function">&lt;/select&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>单独传入数组时，foreach中的collection必须是 <strong>array</strong>，不管变量的具体名称是什么。比如这里变量名为ids，collection却是array。</p>
-<h5 id="3、collection属性为map"><a href="#3、collection属性为map" class="headerlink" title="3、collection属性为map"></a>3、collection属性为map</h5><p>方法调用：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">exists</span><span class="params">(Map&lt;String, Object&gt; map)</span></span>&#123;  </span><br><span class="line">       Object count = getSqlSession().exists(map);  </span><br><span class="line">       <span class="keyword">int</span> totalCount = Integer.parseInt(count.toString());  </span><br><span class="line">       <span class="keyword">return</span> totalCount &gt; <span class="number">0</span> ? <span class="keyword">true</span> : <span class="keyword">false</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对应的mapper：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"exists"</span> parameterType=<span class="string">"java.util.HashMap"</span> resultType=<span class="string">"java.lang.Integer"</span>&gt;  </span><br><span class="line">        <span class="function">SELECT <span class="title">COUNT</span><span class="params">(*)</span> FROM USER user  </span></span><br><span class="line"><span class="function">        &lt;where&gt;  </span></span><br><span class="line"><span class="function">            &lt;<span class="keyword">if</span> test</span>=<span class="string">"code != null"</span>&gt;   </span><br><span class="line">                and user.CODE = #&#123;code&#125;   </span><br><span class="line">            &lt;/if&gt;  </span><br><span class="line">            &lt;<span class="keyword">if</span> test=<span class="string">"id != null"</span>&gt;   </span><br><span class="line">                and user.ID = #&#123;id&#125;   </span><br><span class="line">            &lt;/if&gt;  </span><br><span class="line">            &lt;<span class="keyword">if</span> test=<span class="string">"idList !=null "</span>&gt;  </span><br><span class="line">                and user.<span class="function">ID <span class="title">in</span> <span class="params">(  </span></span></span><br><span class="line"><span class="function"><span class="params">                &lt;foreach collection=<span class="string">"idList"</span> item=<span class="string">"guard"</span> index=<span class="string">"index"</span>   </span></span></span><br><span class="line"><span class="function"><span class="params">                    separator=<span class="string">","</span>&gt; #&#123;guard&#125; &lt;/foreach&gt;  </span></span></span><br><span class="line"><span class="function"><span class="params">                )</span>  </span></span><br><span class="line"><span class="function">            &lt;/<span class="keyword">if</span>&gt;  </span></span><br><span class="line"><span class="function">        &lt;/where&gt;  </span></span><br><span class="line"><span class="function"> &lt;/select&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>map中有list或array时，foreach中的collection必须是具体list或array的变量名。比如这里map含有一个名为idList的list，所以map中用idList(map的key)来取值，这点和单独传list或array时不太一样。</p>
-<h5 id="4、传入java对象"><a href="#4、传入java对象" class="headerlink" title="4、传入java对象"></a>4、传入java对象</h5><p>调用方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">findUserListByDTO</span><span class="params">(UserDTO userDTO)</span></span>&#123;  </span><br><span class="line">       Object count = getSqlSession().findUserListByDTO(userDTO);  </span><br><span class="line">       <span class="keyword">int</span> totalCount = Integer.parseInt(count.toString());  </span><br><span class="line">       <span class="keyword">return</span> totalCount &gt; <span class="number">0</span> ? <span class="keyword">true</span> : <span class="keyword">false</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对应的mapper：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">select id=<span class="string">"findUserListByDTO"</span> parameterType=<span class="string">"UserDTO"</span> resultType=<span class="string">"java.lang.Integer"</span>&gt;  </span><br><span class="line">        <span class="function">SELECT <span class="title">COUNT</span><span class="params">(*)</span> FROM USER user  </span></span><br><span class="line"><span class="function">        &lt;where&gt;  </span></span><br><span class="line"><span class="function">            &lt;<span class="keyword">if</span> test</span>=<span class="string">"code != null"</span>&gt;   </span><br><span class="line">                and user.CODE = #&#123;code&#125;   </span><br><span class="line">            &lt;/if&gt;  </span><br><span class="line">            &lt;<span class="keyword">if</span> test=<span class="string">"id != null"</span>&gt;   </span><br><span class="line">                and user.ID = #&#123;id&#125;   </span><br><span class="line">            &lt;/if&gt;  </span><br><span class="line">            &lt;<span class="keyword">if</span> test=<span class="string">"idList !=null "</span>&gt;  </span><br><span class="line">                and user.<span class="function">ID <span class="title">in</span> <span class="params">(  </span></span></span><br><span class="line"><span class="function"><span class="params">                &lt;foreach collection=<span class="string">"idList"</span> item=<span class="string">"guard"</span> index=<span class="string">"index"</span>   </span></span></span><br><span class="line"><span class="function"><span class="params">                    separator=<span class="string">","</span>&gt; #&#123;guard&#125; &lt;/foreach&gt;  </span></span></span><br><span class="line"><span class="function"><span class="params">                )</span>  </span></span><br><span class="line"><span class="function">            &lt;/<span class="keyword">if</span>&gt;  </span></span><br><span class="line"><span class="function">        &lt;/where&gt;  </span></span><br><span class="line"><span class="function">&lt;/select&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>JAVA对象中有list或array时，foreach中的collection必须是具体list或array的变量名。比如这里UserDTO含有一个名为idList的list，所以UserDTO中用idList取值，这点和单独传list或array时不太一样。</p>
-
+            <p>
+              自从有了Mybatis加强版Mybatis,再也不用写那么复杂麻烦的xml配置文件了！但是偶尔也有需求还得用xml，对于Mybatis的foreach也是经常用到的，但是每次都是从项目里粘贴复制、修修改改就用，对于其具体使用理解也是模模糊糊，导致有时用到的时候遇到各种问题，此文就针对Mybatis的
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/07/13/Mybatis-foreach循环-collection的三种方式/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -764,36 +721,19 @@
       
         
           
-            <h3 id="使用Mybatis-foreach遍历时，Error-evaluating-expression-‘sessionIdList’-Return-value-was-not-iterable"><a href="#使用Mybatis-foreach遍历时，Error-evaluating-expression-‘sessionIdList’-Return-value-was-not-iterable" class="headerlink" title="使用Mybatis foreach遍历时，Error evaluating expression ‘sessionIdList’. Return value () was not iterable."></a>使用Mybatis foreach遍历时，Error evaluating expression ‘sessionIdList’. Return value () was not iterable.</h3><h6 id="问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。"><a href="#问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。" class="headerlink" title="问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。"></a>问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。</h6><ul>
-<li>传入map</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;String, Object&gt; mapper = new HashMap&lt;String, Object&gt;(16);</span><br><span class="line">// 获取要遍历的sessionIdList集合</span><br><span class="line">List&lt;Long&gt; list = getSessionIdList();</span><br><span class="line"></span><br><span class="line">if (CollectionUtils.isEmpty(list)) &#123;</span><br><span class="line">    mapper.put(&quot;sessionIdList&quot;, &quot;&quot;); //罪魁祸首在这里</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    mapper.put(&quot;sessionIdList&quot;, list);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">List&lt;RequestLog&gt; requestLogList = requestLogService.getRequestLogList(mapper);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>对应mapper</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getRequestLogList&quot; parameterType=&quot;java.util.HashMap&quot; resultType=&quot;RequestLog&quot;&gt;  </span><br><span class="line">        SELECT * FROM USER request_log  </span><br><span class="line">        &lt;where&gt;  </span><br><span class="line">            &lt;if test=&quot;code != null and code != &apos;&apos; &quot;&gt;   </span><br><span class="line">                and CODE = #&#123;code&#125;   </span><br><span class="line">            &lt;/if&gt;  </span><br><span class="line">            &lt;if test=&quot;id != null and id != &apos;&apos;&quot;&gt;   </span><br><span class="line">                and ID = #&#123;id&#125;   </span><br><span class="line">            &lt;/if&gt;  </span><br><span class="line">            &lt;if test=&quot;sessionIdList !=null and sessionIdList.size &gt; 0&quot;&gt;  </span><br><span class="line">                and sessionId in (  </span><br><span class="line">                &lt;foreach collection=&quot;sessionIdList&quot; item=&quot;item&quot; index=&quot;index&quot;   </span><br><span class="line">                    separator=&quot;,&quot;&gt; #&#123;item&#125; &lt;/foreach&gt;  </span><br><span class="line">                )  </span><br><span class="line">            &lt;/if&gt;  </span><br><span class="line">        &lt;/where&gt;  </span><br><span class="line"> &lt;/select&gt;</span><br></pre></td></tr></table></figure>
-
-
-<p> 当调用getSessionIdList()方法获取到的集合为空时，传入的值是空字符串而非集合类型，从而在mapper.xml中解析时无法把字符串类型解析成集合类型，报出了Return value () was not iterable的问题。</p>
-<p> 另外还发现了另一个问题，在判断mapper.xm中集合是否为空时，不能与空字符串比较进行判断，而应该用size方法，否则会引起</p>
-<blockquote>
-<p>invalid comparison: java.util.ArrayList and java.lang.String 把集合类型与字符串类型作比较，引起了“无效的比较”错误</p>
-</blockquote>
-<ul>
-<li><p>反例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;if test=&quot;sessionIdList !=null and sessionIdList != &apos;&apos;&quot;&gt;  &lt;!--这里用!=&apos;&apos; 进行判断会报错，因为引起了集合与String类型的比较--&gt;</span><br><span class="line">    and sessionId in (  </span><br><span class="line">    &lt;foreach collection=&quot;sessionIdList&quot; item=&quot;item&quot; index=&quot;index&quot;   </span><br><span class="line">        separator=&quot;,&quot;&gt; #&#123;item&#125; &lt;/foreach&gt;  </span><br><span class="line">        )  </span><br><span class="line">&lt;/if&gt;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<ul>
-<li>正例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;if test=&quot;sessionIdList !=null and sessionIdList.size &gt; 0 &apos;&apos;&quot;&gt;  &lt;!--这里应该用sessionIdList.size &gt; 0 来判断集合是否为空--&gt;</span><br><span class="line">    and sessionId in (  </span><br><span class="line">    &lt;foreach collection=&quot;sessionIdList&quot; item=&quot;item&quot; index=&quot;index&quot;   </span><br><span class="line">        separator=&quot;,&quot;&gt; #&#123;item&#125; &lt;/foreach&gt;  </span><br><span class="line">        )  </span><br><span class="line">&lt;/if&gt;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>当用mabatis foreach遍历时，遍历对象的类型一定要确认是否正确。一般有三种：list(集合)、array(数组)、map(map中传入集合)</p>
-
+            <p>
+              使用Mybatis foreach遍历时，Error evaluating expression ‘sessionIdList’. Return value () was not iterable.问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/07/13/Mybatis-foreach-错误记录/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
