@@ -138,18 +138,27 @@
 
 
 
-  <meta name="description" content="第 1 章 Zookeeper 概述1.1 概述​        Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。​        Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeep">
+  <meta name="description" content="第 1 章 Zookeeper 概述1.1 概述 Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。  Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeeper 上注册的那些观察者做出相">
 <meta name="keywords" content="集群">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zookeeper集群搭建">
 <meta property="og:url" content="https://SparksFlyMe.github.io/2019/09/28/Zookeeper集群搭建/index.html">
 <meta property="og:site_name" content="SparksFlyMe&#39;Blog">
-<meta property="og:description" content="第 1 章 Zookeeper 概述1.1 概述​        Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。​        Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeep">
+<meta property="og:description" content="第 1 章 Zookeeper 概述1.1 概述 Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。  Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeeper 上注册的那些观察者做出相">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-28T15:43:24.703Z">
+<meta property="og:image" content="https://sparksflyme.github.io/2019/09/28/Zookeeper集群搭建/1569687103361.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2019/09/28/Zookeeper集群搭建/20190929011832.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2019/09/28/Zookeeper集群搭建/20190929011439.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2019/09/28/Zookeeper集群搭建/20190929011712.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2019/09/28/Zookeeper集群搭建/20190929010625847.jpg">
+<meta property="og:image" content="https://sparksflyme.github.io/2019/09/28/Zookeeper集群搭建/20190929012359.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2019/09/28/Zookeeper集群搭建/20190929012741.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2019/09/28/Zookeeper集群搭建/20190929012522.png">
+<meta property="og:updated_time" content="2019-09-28T17:29:29.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zookeeper集群搭建">
-<meta name="twitter:description" content="第 1 章 Zookeeper 概述1.1 概述​        Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。​        Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeep">
+<meta name="twitter:description" content="第 1 章 Zookeeper 概述1.1 概述 Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。  Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeeper 上注册的那些观察者做出相">
+<meta name="twitter:image" content="https://sparksflyme.github.io/2019/09/28/Zookeeper集群搭建/1569687103361.png">
 
 
 
@@ -454,13 +463,23 @@
                 
               
 
-              <time title="创建时间：2019-09-28 23:33:00 / 修改时间：23:43:24" itemprop="dateCreated datePublished" datetime="2019-09-28T23:33:00+08:00">2019-09-28</time>
+              <time title="创建时间：2019-09-28 23:33:00" itemprop="dateCreated datePublished" datetime="2019-09-28T23:33:00+08:00">2019-09-28</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-09-29 01:29:29" itemprop="dateModified" datetime="2019-09-29T01:29:29+08:00">2019-09-29</time>
+              </span>
             
           
 
@@ -485,7 +504,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">279</span>
+              <span title="本文字数">898</span>
             </span>
           
 
@@ -516,8 +535,57 @@
       
 
       
-        <h1 id="第-1-章-Zookeeper-概述"><a href="#第-1-章-Zookeeper-概述" class="headerlink" title="第 1 章 Zookeeper 概述"></a>第 1 章 Zookeeper 概述</h1><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><p>​        Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。<br>​        Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeeper 上注册的那些观察者做出相应的反应，从而实现集群中类似 Master/Slave 管理模式 。<br>​        Zookeeper=文件系统+通知机制。</p>
+        <h1 id="第-1-章-Zookeeper-概述"><a href="#第-1-章-Zookeeper-概述" class="headerlink" title="第 1 章 Zookeeper 概述"></a>第 1 章 Zookeeper 概述</h1><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><ul>
+<li><p>Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。</p>
+</li>
+<li><p>Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeeper 上注册的那些观察者做出相应的反应，从而实现集群中类似 Master/Slave 管理模式 。</p>
+</li>
+<li><p>Zookeeper=文件系统+通知机制。</p>
+</li>
+</ul>
+<h3 id="1-2-特点"><a href="#1-2-特点" class="headerlink" title="1.2 特点"></a>1.2 特点</h3><p>1）Zookeeper：一个领导者（leader），多个跟随者（follower）组成的集群。<br>2）Leader 负责进行投票的发起和决议，更新系统状态<br>3）Follower 用于接收客户请求并向客户端返回结果，在选举 Leader 过程中参与投票<br>4）集群中只要有半数以上节点存活，Zookeeper 集群就能正常服务。<br>5）全局数据一致：每个 server 保存一份相同的数据副本，client 无论连接到哪个 server，数<br>据都是一致的。<br>6）更新请求顺序进行，来自同一个 client 的更新请求按其发送顺序依次执行。<br>7）数据更新原子性，一次数据更新要么成功，要么失败。<br>8）实时性，在一定时间范围内，client 能读到最新数据。 </p>
+<h3 id="1-3-数据结构"><a href="#1-3-数据结构" class="headerlink" title="1.3 数据结构"></a>1.3 数据结构</h3><ul>
+<li><p>ZooKeeper 数据模型的结构与 Unix 文件系统很类似，整体上可以看作是一棵树，每个<br>节点称做一个 ZNode。 </p>
+</li>
+<li><p>很显然 zookeeper 集群自身维护了一套数据结构。这个存储结构是一个树形结构，其上<br>的每一个节点，我们称之为”znode”，每一个 znode 默认能够存储 1MB 的数据，每个 ZNode<br>都可以通过其路径唯一标识 </p>
+</li>
+</ul>
+<img src="/2019/09/28/Zookeeper集群搭建/1569687103361.png" title="数据结构图">
 
+
+
+<h3 id="1-4-应用场景"><a href="#1-4-应用场景" class="headerlink" title="1.4 应用场景"></a>1.4 应用场景</h3><p>提供的服务包括：分布式消息同步和协调机制、服务器节点动态上下线、统一配置管理、<br>负载均衡、集群管理等。  </p>
+<ul>
+<li><img src="/2019/09/28/Zookeeper集群搭建/20190929011832.png" title="数据发布与订阅">
+
+
+
+</li>
+</ul>
+<ul>
+<li><img src="/2019/09/28/Zookeeper集群搭建/20190929011439.png" title="软负载均衡">
+
+
+
+</li>
+</ul>
+<ul>
+<li><img src="/2019/09/28/Zookeeper集群搭建/20190929011712.png" title="集群管理">
+
+
+
+
+
+</li>
+</ul>
+<h3 id="1-5-下载地址"><a href="#1-5-下载地址" class="headerlink" title="1.5 下载地址"></a>1.5 下载地址</h3><p><a href="https://zookeeper.apache.org" target="_blank" rel="noopener">https://zookeeper.apache.org</a> </p>
+<img src="/2019/09/28/Zookeeper集群搭建/20190929010625847.jpg">
+
+<img src="/2019/09/28/Zookeeper集群搭建/20190929012359.png">
+
+<img src="/2019/09/28/Zookeeper集群搭建/20190929012741.png">
+
+<img src="/2019/09/28/Zookeeper集群搭建/20190929012522.png">
       
     </div>
 
@@ -741,7 +809,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第-1-章-Zookeeper-概述"><span class="nav-number">1.</span> <span class="nav-text">第 1 章 Zookeeper 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-概述"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 概述</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第-1-章-Zookeeper-概述"><span class="nav-number">1.</span> <span class="nav-text">第 1 章 Zookeeper 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-概述"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-特点"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2 特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-数据结构"><span class="nav-number">1.0.3.</span> <span class="nav-text">1.3 数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-应用场景"><span class="nav-number">1.0.4.</span> <span class="nav-text">1.4 应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-下载地址"><span class="nav-number">1.0.5.</span> <span class="nav-text">1.5 下载地址</span></a></li></ol></li></ol></div>
             
 
           </div>
