@@ -138,17 +138,18 @@
 
 
 
-  <meta name="description" content="我不知道将来如何，只想做好当前的自己！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://SparksFlyMe.github.io/categories/index.html">
+  <meta name="description" content="第 1 章 Zookeeper 概述1.1 概述​        Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。​        Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeep">
+<meta name="keywords" content="集群">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeper集群搭建">
+<meta property="og:url" content="https://SparksFlyMe.github.io/2019/09/28/Zookeeper集群搭建/index.html">
 <meta property="og:site_name" content="SparksFlyMe&#39;Blog">
-<meta property="og:description" content="我不知道将来如何，只想做好当前的自己！">
+<meta property="og:description" content="第 1 章 Zookeeper 概述1.1 概述​        Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。​        Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeep">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-13T01:03:16.058Z">
+<meta property="og:updated_time" content="2019-09-28T15:43:24.703Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
-<meta name="twitter:description" content="我不知道将来如何，只想做好当前的自己！">
+<meta name="twitter:title" content="Zookeeper集群搭建">
+<meta name="twitter:description" content="第 1 章 Zookeeper 概述1.1 概述​        Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。​        Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeep">
 
 
 
@@ -156,7 +157,7 @@
 
   
   
-  <link rel="canonical" href="https://SparksFlyMe.github.io/categories/">
+  <link rel="canonical" href="https://SparksFlyMe.github.io/2019/09/28/Zookeeper集群搭建/">
 
 
 
@@ -166,7 +167,7 @@
   };
 </script>
 
-  <title>分类 | SparksFlyMe'Blog</title>
+  <title>Zookeeper集群搭建 | SparksFlyMe'Blog</title>
   
 
 
@@ -304,7 +305,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -390,86 +391,195 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://SparksFlyMe.github.io/2019/09/28/Zookeeper集群搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kaizhang">
+      <meta itemprop="description" content="我不知道将来如何，只想做好当前的自己！">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SparksFlyMe'Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">分类
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
+          <h1 class="post-title" itemprop="name headline">Zookeeper集群搭建
+
               
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
               
                 
-                  
-                
               
-              目前共计 1 个分类
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
-        
-      </div>
+
+              <time title="创建时间：2019-09-28 23:33:00 / 修改时间：23:43:24" itemprop="dateCreated datePublished" datetime="2019-09-28T23:33:00+08:00">2019-09-28</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">279</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">1 分钟</span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="第-1-章-Zookeeper-概述"><a href="#第-1-章-Zookeeper-概述" class="headerlink" title="第 1 章 Zookeeper 概述"></a>第 1 章 Zookeeper 概述</h1><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><p>​        Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的 Apache 项目。<br>​        Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在 Zookeeper 上注册的那些观察者做出相应的反应，从而实现集群中类似 Master/Slave 管理模式 。<br>​        Zookeeper=文件系统+通知机制。</p>
+
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/集群/" rel="tag"><i class="fa fa-tag"></i> 集群</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/21/Spring自动装配/" rel="next" title="Spring自动装配">
+                <i class="fa fa-chevron-left"></i> Spring自动装配
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
@@ -498,8 +608,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -611,6 +730,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第-1-章-Zookeeper-概述"><span class="nav-number">1.</span> <span class="nav-text">第 1 章 Zookeeper 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-概述"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 概述</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
