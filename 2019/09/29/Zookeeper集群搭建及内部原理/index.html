@@ -150,7 +150,7 @@
 <meta property="og:image" content="https://sparksflyme.github.io/2019/09/29/Zookeeper集群搭建及内部原理/顺序编号.png">
 <meta property="og:image" content="https://sparksflyme.github.io/2019/09/29/Zookeeper集群搭建及内部原理/监听器原理.png">
 <meta property="og:image" content="https://sparksflyme.github.io/2019/09/29/Zookeeper集群搭建及内部原理/写数据流程.png">
-<meta property="og:updated_time" content="2019-10-08T13:39:30.176Z">
+<meta property="og:updated_time" content="2019-10-16T15:15:20.672Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zookeeper集群搭建及内部原理">
 <meta name="twitter:description" content="第1章 Zookeeper 实战1.1 分布式安装部署0）集群规划​        在CentOS_1、CentOS_2 和CentOS_3 三个服务器上部署 Zookeeper。 1）解压安装​    （1）解压 zookeeper 安装包到/opt/software/目录下  1[kaizhang@localhost software]$  tar -zxvf zookeeper-3.4.14">
@@ -474,7 +474,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-10-08 21:39:30" itemprop="dateModified" datetime="2019-10-08T21:39:30+08:00">2019-10-08</time>
+                <time title="修改时间：2019-10-16 23:15:20" itemprop="dateModified" datetime="2019-10-16T23:15:20+08:00">2019-10-16</time>
               </span>
             
           
@@ -515,7 +515,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">8.1k</span>
+              <span title="本文字数">8.2k</span>
             </span>
           
 
@@ -574,7 +574,8 @@
 <p>​        （4）在三台机器上分别启动 zookeeper </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@localhost bin]$ ./zkServer.sh start</span><br></pre></td></tr></table></figure>
 
-<pre><code>（5）查看状态 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@localhost bin]$ ./zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/software/zookeeper-3.4.14/bin/../conf/zoo.cfg</span><br><span class="line">Mode: leader</span><br><span class="line"></span><br><span class="line">[kaizhang@localhost bin]$ ./zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/software/zookeeper-3.4.14/bin/../conf/zoo.cfg</span><br><span class="line">Mode: follower</span><br><span class="line"></span><br><span class="line">[kaizhang@localhost bin]$ ./zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/software/zookeeper-3.4.14/bin/../conf/zoo.cfg</span><br><span class="line">Mode: follower</span><br></pre></td></tr></table></figure>
+<p>​        （5）查看状态 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@localhost bin]$ ./zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/software/zookeeper-3.4.14/bin/../conf/zoo.cfg</span><br><span class="line">Mode: leader</span><br><span class="line"></span><br><span class="line">[kaizhang@localhost bin]$ ./zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/software/zookeeper-3.4.14/bin/../conf/zoo.cfg</span><br><span class="line">Mode: follower</span><br><span class="line"></span><br><span class="line">[kaizhang@localhost bin]$ ./zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/software/zookeeper-3.4.14/bin/../conf/zoo.cfg</span><br><span class="line">Mode: follower</span><br></pre></td></tr></table></figure>
 
 <h3 id="1-2-客户端命令行操作"><a href="#1-2-客户端命令行操作" class="headerlink" title="1.2 客户端命令行操作"></a>1.2 客户端命令行操作</h3><table>
 <thead>
@@ -651,7 +652,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 0] ls /</span><br><span class="line">[zookeeper, app1]</span><br></pre></td></tr></table></figure>
 
 <p>​    8）创建带序号的节点 </p>
-<pre><code>（1）先创建一个普通的根节点 app2 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 2] create /app2 &quot;app2&quot; </span><br><span class="line">Created /app2</span><br></pre></td></tr></table></figure>
+<p>​        （1）先创建一个普通的根节点 app2 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 2] create /app2 &quot;app2&quot; </span><br><span class="line">Created /app2</span><br></pre></td></tr></table></figure>
 
 <p>​         （2）创建带序号的节点 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 4]  create -s /app2/aa 888</span><br><span class="line">Created /app2/aa0000000000</span><br><span class="line">[zk: localhost:2181(CONNECTED) 5] create -s /app2/bb 888</span><br><span class="line">Created /app2/bb0000000001</span><br><span class="line">[zk: localhost:2181(CONNECTED) 6] create -s /app2/cc 888 </span><br><span class="line">Created /app2/cc0000000002</span><br></pre></td></tr></table></figure>
@@ -669,7 +671,8 @@
 <p>​        （2）在 102 主机上修改/app1 节点的数据 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 5] set /app1  777</span><br></pre></td></tr></table></figure>
 
-<pre><code>（3）观察 101 主机收到数据变化的监听 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NodeDataChanged path:/app1</span><br></pre></td></tr></table></figure>
+<p>​        （3）观察 101 主机收到数据变化的监听 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected type:NodeDataChanged path:/app1</span><br></pre></td></tr></table></figure>
 
 <p>11）节点的子节点变化监听（路径变化） </p>
 <pre><code>（1）在 101 主机上注册监听/app1 节点的子节点变化 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 17] ls /app1 watch</span><br><span class="line">[server101]</span><br></pre></td></tr></table></figure>
