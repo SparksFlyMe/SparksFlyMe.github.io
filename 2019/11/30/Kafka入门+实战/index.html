@@ -138,18 +138,18 @@
 
 
 
-  <meta name="description" content="使用Mybatis foreach遍历时，Error evaluating expression ‘sessionIdList’. Return value () was not iterable.问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。 传入map  1234567891011Has">
-<meta name="keywords" content="Mybatis">
+  <meta name="description" content="title: Kafka入门+实战author: kaizhangtags:  中间件categories: []date: 2019-11-30 13:05:00  #  第一章 Kafka概述">
+<meta name="keywords" content="Kafka">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mybatis foreach 使用错误记录">
-<meta property="og:url" content="https://SparksFlyMe.github.io/2019/07/13/Mybatis-foreach-错误记录/index.html">
+<meta property="og:title" content=" Kafka入门+实战">
+<meta property="og:url" content="https://SparksFlyMe.github.io/2019/11/30/Kafka入门+实战/index.html">
 <meta property="og:site_name" content="SparksFlyMe&#39;Blog">
-<meta property="og:description" content="使用Mybatis foreach遍历时，Error evaluating expression ‘sessionIdList’. Return value () was not iterable.问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。 传入map  1234567891011Has">
+<meta property="og:description" content="title: Kafka入门+实战author: kaizhangtags:  中间件categories: []date: 2019-11-30 13:05:00  #  第一章 Kafka概述">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-13T08:29:38.547Z">
+<meta property="og:updated_time" content="2019-11-30T05:20:36.852Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mybatis foreach 使用错误记录">
-<meta name="twitter:description" content="使用Mybatis foreach遍历时，Error evaluating expression ‘sessionIdList’. Return value () was not iterable.问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。 传入map  1234567891011Has">
+<meta name="twitter:title" content=" Kafka入门+实战">
+<meta name="twitter:description" content="title: Kafka入门+实战author: kaizhangtags:  中间件categories: []date: 2019-11-30 13:05:00  #  第一章 Kafka概述">
 
 
 
@@ -157,7 +157,7 @@
 
   
   
-  <link rel="canonical" href="https://SparksFlyMe.github.io/2019/07/13/Mybatis-foreach-错误记录/">
+  <link rel="canonical" href="https://SparksFlyMe.github.io/2019/11/30/Kafka入门+实战/">
 
 
 
@@ -167,7 +167,7 @@
   };
 </script>
 
-  <title>Mybatis foreach 使用错误记录 | SparksFlyMe'Blog</title>
+  <title> Kafka入门+实战 | SparksFlyMe'Blog</title>
   
 
 
@@ -411,7 +411,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://SparksFlyMe.github.io/2019/07/13/Mybatis-foreach-错误记录/">
+    <link itemprop="mainEntityOfPage" href="https://SparksFlyMe.github.io/2019/11/30/Kafka入门+实战/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="kaizhang">
@@ -428,7 +428,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Mybatis foreach 使用错误记录
+          <h1 class="post-title" itemprop="name headline"> Kafka入门+实战
 
               
             
@@ -454,7 +454,7 @@
                 
               
 
-              <time title="创建时间：2019-07-13 10:12:00 / 修改时间：16:29:38" itemprop="dateCreated datePublished" datetime="2019-07-13T10:12:00+08:00">2019-07-13</time>
+              <time title="创建时间：2019-11-30 13:09:00 / 修改时间：13:20:36" itemprop="dateCreated datePublished" datetime="2019-11-30T13:09:00+08:00">2019-11-30</time>
             </span>
           
 
@@ -473,7 +473,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
 
                 
                 
@@ -500,7 +500,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">2.6k</span>
+              <span title="本文字数">99</span>
             </span>
           
 
@@ -512,7 +512,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">2 分钟</span>
+              <span title="阅读时长">1 分钟</span>
             </span>
           
 
@@ -531,35 +531,13 @@
       
 
       
-        <h3 id="使用Mybatis-foreach遍历时，Error-evaluating-expression-‘sessionIdList’-Return-value-was-not-iterable"><a href="#使用Mybatis-foreach遍历时，Error-evaluating-expression-‘sessionIdList’-Return-value-was-not-iterable" class="headerlink" title="使用Mybatis foreach遍历时，Error evaluating expression ‘sessionIdList’. Return value () was not iterable."></a>使用Mybatis foreach遍历时，Error evaluating expression ‘sessionIdList’. Return value () was not iterable.</h3><h6 id="问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。"><a href="#问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。" class="headerlink" title="问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。"></a>问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。</h6><ul>
-<li>传入map</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;String, Object&gt; mapper = new HashMap&lt;String, Object&gt;(16);</span><br><span class="line">// 获取要遍历的sessionIdList集合</span><br><span class="line">List&lt;Long&gt; list = getSessionIdList();</span><br><span class="line"></span><br><span class="line">if (CollectionUtils.isEmpty(list)) &#123;</span><br><span class="line">    mapper.put(&quot;sessionIdList&quot;, &quot;&quot;); //罪魁祸首在这里</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    mapper.put(&quot;sessionIdList&quot;, list);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">List&lt;RequestLog&gt; requestLogList = requestLogService.getRequestLogList(mapper);</span><br></pre></td></tr></table></figure>
-
+        <hr>
+<p>title: Kafka入门+实战<br>author: kaizhang<br>tags:</p>
 <ul>
-<li>对应mapper</li>
+<li>中间件<br>categories: []<br>date: 2019-11-30 13:05:00</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getRequestLogList&quot; parameterType=&quot;java.util.HashMap&quot; resultType=&quot;RequestLog&quot;&gt;  </span><br><span class="line">        SELECT * FROM USER request_log  </span><br><span class="line">        &lt;where&gt;  </span><br><span class="line">            &lt;if test=&quot;code != null and code != &apos;&apos; &quot;&gt;   </span><br><span class="line">                and CODE = #&#123;code&#125;   </span><br><span class="line">            &lt;/if&gt;  </span><br><span class="line">            &lt;if test=&quot;id != null and id != &apos;&apos;&quot;&gt;   </span><br><span class="line">                and ID = #&#123;id&#125;   </span><br><span class="line">            &lt;/if&gt;  </span><br><span class="line">            &lt;if test=&quot;sessionIdList !=null and sessionIdList.size &gt; 0&quot;&gt;  </span><br><span class="line">                and sessionId in (  </span><br><span class="line">                &lt;foreach collection=&quot;sessionIdList&quot; item=&quot;item&quot; index=&quot;index&quot;   </span><br><span class="line">                    separator=&quot;,&quot;&gt; #&#123;item&#125; &lt;/foreach&gt;  </span><br><span class="line">                )  </span><br><span class="line">            &lt;/if&gt;  </span><br><span class="line">        &lt;/where&gt;  </span><br><span class="line"> &lt;/select&gt;</span><br></pre></td></tr></table></figure>
-
-
-<p> 当调用getSessionIdList()方法获取到的集合为空时，传入的值是空字符串而非集合类型，从而在mapper.xml中解析时无法把字符串类型解析成集合类型，报出了Return value () was not iterable的问题。</p>
-<p> 另外还发现了另一个问题，在判断mapper.xm中集合是否为空时，不能与空字符串比较进行判断，而应该用size方法，否则会引起</p>
-<blockquote>
-<p>invalid comparison: java.util.ArrayList and java.lang.String 把集合类型与字符串类型作比较，引起了“无效的比较”错误</p>
-</blockquote>
-<ul>
-<li><p>反例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;if test=&quot;sessionIdList !=null and sessionIdList != &apos;&apos;&quot;&gt;  &lt;!--这里用!=&apos;&apos; 进行判断会报错，因为引起了集合与String类型的比较--&gt;</span><br><span class="line">    and sessionId in (  </span><br><span class="line">    &lt;foreach collection=&quot;sessionIdList&quot; item=&quot;item&quot; index=&quot;index&quot;   </span><br><span class="line">        separator=&quot;,&quot;&gt; #&#123;item&#125; &lt;/foreach&gt;  </span><br><span class="line">        )  </span><br><span class="line">&lt;/if&gt;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<ul>
-<li>正例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;if test=&quot;sessionIdList !=null and sessionIdList.size &gt; 0 &apos;&apos;&quot;&gt;  &lt;!--这里应该用sessionIdList.size &gt; 0 来判断集合是否为空--&gt;</span><br><span class="line">    and sessionId in (  </span><br><span class="line">    &lt;foreach collection=&quot;sessionIdList&quot; item=&quot;item&quot; index=&quot;index&quot;   </span><br><span class="line">        separator=&quot;,&quot;&gt; #&#123;item&#125; &lt;/foreach&gt;  </span><br><span class="line">        )  </span><br><span class="line">&lt;/if&gt;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>当用mabatis foreach遍历时，遍历对象的类型一定要确认是否正确。一般有三种：list(集合)、array(数组)、map(map中传入集合)</p>
-
+<p># </p>
+<h2 id="第一章-Kafka概述"><a href="#第一章-Kafka概述" class="headerlink" title="第一章 Kafka概述"></a>第一章 Kafka概述</h2>
       
     </div>
 
@@ -585,7 +563,7 @@
         
         <div class="post-tags">
           
-            <a href="/tags/Mybatis/" rel="tag"><i class="fa fa-tag"></i> Mybatis</a>
+            <a href="/tags/Kafka/" rel="tag"><i class="fa fa-tag"></i> Kafka</a>
           
         </div>
       
@@ -598,15 +576,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/09/29/Zookeeper集群搭建及内部原理/" rel="next" title="Zookeeper集群搭建及内部原理">
+                <i class="fa fa-chevron-left"></i> Zookeeper集群搭建及内部原理
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/13/Mybatis-foreach循环-collection的三种方式/" rel="prev" title="Mybatis foreach循环 collection的三种方式">
-                Mybatis foreach循环 collection的三种方式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -791,7 +769,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Mybatis-foreach遍历时，Error-evaluating-expression-‘sessionIdList’-Return-value-was-not-iterable"><span class="nav-number">1.</span> <span class="nav-text">使用Mybatis foreach遍历时，Error evaluating expression ‘sessionIdList’. Return value () was not iterable.</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">问题的起因时这样的，同事用map方式传值，map里需要存入一个集合，但是在判断集合为空时放了空字符串，导致mybatis在遍历时无法把空字符串解析成集合。</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-Kafka概述"><span class="nav-number">1.</span> <span class="nav-text">第一章 Kafka概述</span></a></li></ol></div>
             
 
           </div>

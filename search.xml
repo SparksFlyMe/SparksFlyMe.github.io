@@ -2,10 +2,13 @@
 <search>
   <entry>
     <title><![CDATA[Kafka入门+实战]]></title>
-    <url>%2F2019%2F11%2F30%2FKafka%E5%85%A5%E9%97%A8%2F</url>
-    <content type="text"><![CDATA[Kafka入门+实战第一章 Kafka概述]]></content>
+    <url>%2F2019%2F11%2F30%2FKafka%E5%85%A5%E9%97%A8%2B%E5%AE%9E%E6%88%98%2F</url>
+    <content type="text"><![CDATA[title: Kafka入门+实战author: kaizhangtags: 中间件categories: []date: 2019-11-30 13:05:00 # 第一章 Kafka概述]]></content>
+      <categories>
+        <category>中间件</category>
+      </categories>
       <tags>
-        <tag>中间件</tag>
+        <tag>Kafka</tag>
       </tags>
   </entry>
   <entry>
