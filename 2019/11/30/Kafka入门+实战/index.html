@@ -151,7 +151,7 @@
 <meta property="og:image" content="https://sparksflyme.github.io/2019/11/30/Kafka入门+实战/一对多.jpg">
 <meta property="og:image" content="https://sparksflyme.github.io/2019/11/30/Kafka入门+实战/Kafka架构图.png">
 <meta property="og:image" content="https://sparksflyme.github.io/2019/11/30/Kafka入门+实战/kafka下载地址.png">
-<meta property="og:updated_time" content="2019-12-11T13:51:44.770Z">
+<meta property="og:updated_time" content="2019-12-12T16:34:58.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka入门+实战">
 <meta name="twitter:description" content="Kafka入门+实战第 1 章 Kafka概述1.1 定义Kafka 是一个分布式的基于发布/订阅模式的消息队列（Message Queue），主要应用于大数据实时处理领域。 1.2 消息队列1.2.1 传统消息队列的应用场景MQ传统应用场景之异步处理：   使用消息队列的好处  解耦允许你独立的扩展或修改两边的处理过程，只要确保它们遵守同样的接口约束。 可恢复性系统的一部分组件失效时，不会影响到">
@@ -475,7 +475,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-12-11 21:51:44" itemprop="dateModified" datetime="2019-12-11T21:51:44+08:00">2019-12-11</time>
+                <time title="修改时间：2019-12-13 00:34:58" itemprop="dateModified" datetime="2019-12-13T00:34:58+08:00">2019-12-13</time>
               </span>
             
           
@@ -516,7 +516,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">4k</span>
+              <span title="本文字数">8.2k</span>
             </span>
           
 
@@ -528,7 +528,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">4 分钟</span>
+              <span title="阅读时长">7 分钟</span>
             </span>
           
 
@@ -584,7 +584,7 @@
 <li>Consumer Group （CG）：消费者组，由多个 consumer 组成。<font color="red">消费者组内每个消费者负责消费不同分区的数据，一个分区只能由一个组内消费者消费；消费者组之间互不影响</font>。所有的消费者都属于某个消费者组，即<font color="red">消费者组是逻辑上的一个订阅者</font>。 如果分区数大于或者等于组中的消费者实例数，一个消费者会负责多个分区。当然最理想的是<font color="red">分区数等于组中的消费者实例数</font>。</li>
 <li>Broker ：一台 kafka 服务器就是一个 broker。一个集群由多个 broker 组成。一个 broker可以容纳多个 topic。 </li>
 <li>Topic ：可以理解为一个队列，<font color="red">生产者和消费者面向的都是一个 topic</font></li>
-<li>Partition：为了实现扩展性，一个非常大的 topic 可以分布到多个 broker（即服务器）上，一个 topic 可以分为多个 partition，每个 partition 是一个有序的队列； </li>
+<li>Partition：为了实现扩展性，一个非常大的 topic 可以分布到多个 broker（即服务器）上，<font color="red">一个 topic 可以分为多个 partition</font>，每个 partition 是一个有序的队列； </li>
 <li>Replica：副本，为保证集群中的某个节点发生故障时，该节点上的 partition 数据不丢失，且 kafka 仍然能够继续工作，kafka 提供了副本机制，一个 topic 的每个分区都有若干个副本，一个 leader 和若干个 follower。</li>
 <li>leader：每个分区多个副本的“主”，生产者发送数据的对象，以及消费者消费数据的对象都是 leader。 </li>
 <li>follower：每个分区多个副本中的“从”，实时从 leader 中同步数据，保持和 leader 数据的同步。leader 发生故障时，某个 follower 会成为新的 follower。</li>
@@ -613,7 +613,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@localhost kafka_2.11-0.11.0.0]$ <span class="built_in">cd</span> config</span><br><span class="line">[kaizhang@localhost config]$ vi server.properties</span><br></pre></td></tr></table></figure>
 
 <p>​    修改部分配置如下：(其中三台centos中broker.id分别是1、2、3，不得重复)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#broker的全局唯一编号，不能重复</span></span><br><span class="line">broker.id=1 </span><br><span class="line"><span class="comment">#删除topic功能使能</span></span><br><span class="line">delete.topic.enable=<span class="literal">true</span> </span><br><span class="line"><span class="comment">#处理网络请求的线程数量</span></span><br><span class="line">num.network.threads=3 </span><br><span class="line"><span class="comment">#用来处理磁盘IO的现成数量</span></span><br><span class="line">num.io.threads=8 </span><br><span class="line"><span class="comment">#发送套接字的缓冲区大小</span></span><br><span class="line">socket.send.buffer.bytes=102400 </span><br><span class="line"><span class="comment">#接收套接字的缓冲区大小</span></span><br><span class="line">socket.receive.buffer.bytes=102400 </span><br><span class="line"><span class="comment">#请求套接字的缓冲区大小</span></span><br><span class="line">socket.request.max.bytes=104857600 </span><br><span class="line"><span class="comment">#kafka运行日志存放的路径</span></span><br><span class="line">log.dirs=/opt/software/kafka/logs </span><br><span class="line"><span class="comment">#topic在当前broker上的分区个数</span></span><br><span class="line">num.partitions=1 </span><br><span class="line"><span class="comment">#用来恢复和清理data下数据的线程数量</span></span><br><span class="line">num.recovery.threads.per.data.dir=1 </span><br><span class="line"><span class="comment">#segment文件保留的最长时间，超时将被删除</span></span><br><span class="line">log.retention.hours=168 </span><br><span class="line"><span class="comment">#配置连接Zookeeper集群地址</span></span><br><span class="line">zookeeper.connect=192.168.17.101:2181,192.168.17.102:2181,192.168.17.103:2181</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#broker的全局唯一编号，不能重复</span></span><br><span class="line">broker.id=1 </span><br><span class="line"><span class="comment">#删除topic功能使能</span></span><br><span class="line">delete.topic.enable=<span class="literal">true</span> </span><br><span class="line"><span class="comment">#kafka服务器需要监听的端口号。如果是在本机上跑虚拟机运行可以不用配置本项，默认会使用localhost的地址，如果是在远程服务器上运行则必须配置</span></span><br><span class="line"><span class="comment">#例如：listeners=PLAINTEXT:// 192.168.1.1:9092。并确保服务器的9092端口能够访问</span></span><br><span class="line"><span class="comment">#listeners=PLAINTEXT://:9092</span></span><br><span class="line"><span class="comment">#处理网络请求的线程数量</span></span><br><span class="line">num.network.threads=3 </span><br><span class="line"><span class="comment">#用来处理磁盘IO的现成数量</span></span><br><span class="line">num.io.threads=8 </span><br><span class="line"><span class="comment">#发送套接字的缓冲区大小</span></span><br><span class="line">socket.send.buffer.bytes=102400 </span><br><span class="line"><span class="comment">#接收套接字的缓冲区大小</span></span><br><span class="line">socket.receive.buffer.bytes=102400 </span><br><span class="line"><span class="comment">#请求套接字的缓冲区大小</span></span><br><span class="line">socket.request.max.bytes=104857600 </span><br><span class="line"><span class="comment">#kafka运行日志存放的路径</span></span><br><span class="line">log.dirs=/opt/software/kafka/logs </span><br><span class="line"><span class="comment">#topic在当前broker上的分区个数</span></span><br><span class="line">num.partitions=1 </span><br><span class="line"><span class="comment">#用来恢复和清理data下数据的线程数量</span></span><br><span class="line">num.recovery.threads.per.data.dir=1 </span><br><span class="line"><span class="comment">#segment文件保留的最长时间，超时将被删除</span></span><br><span class="line">log.retention.hours=168 </span><br><span class="line"><span class="comment">#配置连接Zookeeper集群地址</span></span><br><span class="line">zookeeper.connect=192.168.17.101:2181,192.168.17.102:2181,192.168.17.103:2181</span><br></pre></td></tr></table></figure>
 
 <p>5、配置环境变量</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">kaizhang@localhost config]$ sudo vi /etc/profile </span><br><span class="line"> </span><br><span class="line">#KAFKA_HOME</span><br><span class="line">export KAFKA_HOME=/opt/software/kafka</span><br><span class="line">export PATH=$PATH:$KAFKA_HOME/bin</span><br><span class="line"> </span><br><span class="line">[kaizhang@localhost config]$ source /etc/profile</span><br></pre></td></tr></table></figure>
@@ -628,6 +628,55 @@
 <p>8、kafka操作脚本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line"><span class="string">"start"</span>)&#123;</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"========== server1 start =========="</span></span><br><span class="line">        sh /opt/software/kafka/bin/kafka-server-start.sh -daemon /opt/software/kafka/config/server.properties</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line"><span class="string">"stop"</span>)&#123;</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"========== server1 stop ==========="</span></span><br><span class="line">        sh /opt/software/kafka/bin/kafka-server-stop.sh -daemon /opt/software/kafka/config/server.properties</span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
 
+<h4 id="2-2-Kafka命令行操作-在-opt-software-kafka目录下执行命令"><a href="#2-2-Kafka命令行操作-在-opt-software-kafka目录下执行命令" class="headerlink" title="2.2 Kafka命令行操作(在/opt/software/kafka目录下执行命令)"></a>2.2 Kafka命令行操作(在/opt/software/kafka目录下执行命令)</h4><p>1、查看当前服务器中的所有 topic </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-topics.sh --zookeeper server1:2181 --list</span><br><span class="line">__consumer_offsets</span><br><span class="line">five</span><br><span class="line">four</span><br></pre></td></tr></table></figure>
+
+<p>2、创建 topic </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-topics.sh --zookeeper server1:2181 --create --replication-factor 2 --partitions 3 --topic first</span><br><span class="line">Created topic <span class="string">"first"</span>.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>选项说明：<br>–topic  定义 topic 名<br>–replication-factor  定义副本数<br>–partitions  定义分区数</p>
+</blockquote>
+<p>在创建完topic后，可以到kafka数据文件中查看，这里到设置的目录里查看即 log.dirs=/opt/software/kafka/logs </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drwxrwxr-x. 2 kaizhang kaizhang   141 12月 13 00:04 first-0</span><br><span class="line">drwxrwxr-x. 2 kaizhang kaizhang   141 12月 13 00:04 first-1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在first-0中，first是主题名称，0为分区</p>
+<p>这里first主题是3个分区，2个副本，所以在三台服务器的日志文件中共可以看到6个first相关的数据：</p>
+<p>first-0、first-1、first-2、first-0、first-1、first-2</p>
+<p>如果创建的是2个分区，3个副本，则数据为：</p>
+<p>first-0、first-0、first-0、first-1、first-1、first-1</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-topics.sh --zookeeper server1:2181 --create --replication-factor 4 --partitions 2 --topic first</span><br><span class="line">Error <span class="keyword">while</span> executing topic <span class="built_in">command</span> : replication factor: 4 larger than available brokers: 3</span><br><span class="line">[2019-12-13 00:22:07,440] ERROR org.apache.kafka.common.errors.InvalidReplicationFactorException: replication factor: 4 larger than available brokers: 3</span><br><span class="line"> (kafka.admin.TopicCommand$)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[2019-12-13 00:23:10,391] ERROR org.apache.kafka.common.errors.InvalidReplicationFactorException: replication factor must be larger than 0</span><br><span class="line"> (kafka.admin.TopicCommand$)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里可以看到，如果副本数等于0或者大于服务器个数，都是会报错的</p>
+</blockquote>
+<p>3、删除topic</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-topics.sh --zookeeper server1:2181 --delete --topic first</span><br><span class="line">Topic first is marked for deletion.</span><br><span class="line">Note: This will have no impact if delete.topic.enable is not set to true.</span><br></pre></td></tr></table></figure>
+
+<p>需要 server.properties 中设置 delete.topic.enable=true 否则只是标记删除。 </p>
+<p>4、发送消息 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-console-producer.sh --topic first --broker-list server1:9092</span><br><span class="line">&gt;hello world</span><br><span class="line">&gt;kafka</span><br></pre></td></tr></table></figure>
+
+<p>其中9092是kafka服务器需要监听的端口号，在server.properties文件中配置。</p>
+<p>5、消费消息 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#通过zookeeper消费，这是kafka 0.9版本之前的消费方式，0.9版本之前消息是存放在zookeeper中的</span></span><br><span class="line">[kaizhang@server3 kafka]$ bin/kafka-console-consumer.sh  --zookeeper server1:2181 --topic first  </span><br><span class="line"><span class="comment">#通过kafka 0.9版本之后的消费方式</span></span><br><span class="line">[kaizhang@server3 kafka]$ bin/kafka-console-consumer.sh --bootstrap-server server1:9092 --topic first</span><br><span class="line"><span class="comment">#从最初的的消息开始</span></span><br><span class="line">[kaizhang@server3 kafka]$ bin/kafka-console-consumer.sh --bootstrap-server server1:9092 --topic first  --from-beginning</span><br></pre></td></tr></table></figure>
+
+<p>–from-beginning：会把主题中以往所有的数据都读取出来。 </p>
+<p>6、查看某个 Topic 的详情 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-topics.sh --zookeeper server1:2181 --describe --topic first</span><br><span class="line">Topic:first	PartitionCount:3	ReplicationFactor:2	Configs:</span><br><span class="line">	Topic: first	Partition: 0	Leader: 1	Replicas: 1,2	Isr: 1,2</span><br><span class="line">	Topic: first	Partition: 1	Leader: 2	Replicas: 2,3	Isr: 2,3</span><br><span class="line">	Topic: first	Partition: 2	Leader: 3	Replicas: 3,1	Isr: 3,1</span><br></pre></td></tr></table></figure>
+
+<p>7、修改分区数 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-topics.sh --zookeeper server1:2181 --alter --topic first --partitions 6 </span><br><span class="line">WARNING: If partitions are increased for a topic that has a key, the partition logic or ordering of the messages will be affected</span><br><span class="line">Adding partitions succeeded!</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-topics.sh --zookeeper server1:2181 --alter --topic first --partitions 2</span><br><span class="line">WARNING: If partitions are increased for a topic that has a key, the partition logic or ordering of the messages will be affected</span><br><span class="line">Error while executing topic command : The number of partitions for a topic can only be increased</span><br><span class="line">[2019-12-13 00:31:37,496] ERROR kafka.admin.AdminOperationException: The number of partitions for a topic can only be increased</span><br><span class="line">	at kafka.admin.AdminUtils$.addPartitions(AdminUtils.scala:292)</span><br><span class="line">	at kafka.admin.TopicCommand$$anonfun$alterTopic$1.apply(TopicCommand.scala:147)</span><br><span class="line">	at kafka.admin.TopicCommand$$anonfun$alterTopic$1.apply(TopicCommand.scala:124)</span><br><span class="line">	at scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)</span><br><span class="line">	at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)</span><br><span class="line">	at kafka.admin.TopicCommand$.alterTopic(TopicCommand.scala:124)</span><br><span class="line">	at kafka.admin.TopicCommand$.main(TopicCommand.scala:64)</span><br><span class="line">	at kafka.admin.TopicCommand.main(TopicCommand.scala)</span><br><span class="line"> (kafka.admin.TopicCommand$)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里可以看到，分区数只能增加，不能减少</p>
+</blockquote>
 
       
     </div>
@@ -860,7 +909,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka入门-实战"><span class="nav-number">1.</span> <span class="nav-text">Kafka入门+实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第-1-章-Kafka概述"><span class="nav-number">1.1.</span> <span class="nav-text">第 1 章 Kafka概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-消息队列"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-传统消息队列的应用场景"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1.2.1 传统消息队列的应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-消息队列的两种模式"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">1.2.2 消息队列的两种模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-Kafka-基础架构"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">1.3 Kafka 基础架构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第-2-章-Kafka-快速入门"><span class="nav-number">1.2.</span> <span class="nav-text">第 2 章 Kafka 快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装部署"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-集群规划"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">2.1.1 集群规划</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-安装包下载"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2.1.2 安装包下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-集群部署"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">2.1.3 集群部署</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka入门-实战"><span class="nav-number">1.</span> <span class="nav-text">Kafka入门+实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第-1-章-Kafka概述"><span class="nav-number">1.1.</span> <span class="nav-text">第 1 章 Kafka概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-消息队列"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-传统消息队列的应用场景"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1.2.1 传统消息队列的应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-消息队列的两种模式"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">1.2.2 消息队列的两种模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-Kafka-基础架构"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">1.3 Kafka 基础架构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第-2-章-Kafka-快速入门"><span class="nav-number">1.2.</span> <span class="nav-text">第 2 章 Kafka 快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装部署"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-集群规划"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">2.1.1 集群规划</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-安装包下载"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2.1.2 安装包下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-集群部署"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">2.1.3 集群部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-Kafka命令行操作-在-opt-software-kafka目录下执行命令"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">2.2 Kafka命令行操作(在/opt/software/kafka目录下执行命令)</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -894,7 +943,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">26k</span>
+    <span title="站点总字数">30k</span>
   
 
   
@@ -903,7 +952,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">24 分钟</span>
+    <span title="站点阅读时长">27 分钟</span>
   
 </div>
 
