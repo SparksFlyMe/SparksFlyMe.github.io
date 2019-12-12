@@ -151,7 +151,7 @@
 <meta property="og:image" content="https://sparksflyme.github.io/2019/11/30/Kafka入门+实战/一对多.jpg">
 <meta property="og:image" content="https://sparksflyme.github.io/2019/11/30/Kafka入门+实战/Kafka架构图.png">
 <meta property="og:image" content="https://sparksflyme.github.io/2019/11/30/Kafka入门+实战/kafka下载地址.png">
-<meta property="og:updated_time" content="2019-12-12T16:34:58.327Z">
+<meta property="og:updated_time" content="2019-12-12T16:42:09.126Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka入门+实战">
 <meta name="twitter:description" content="Kafka入门+实战第 1 章 Kafka概述1.1 定义Kafka 是一个分布式的基于发布/订阅模式的消息队列（Message Queue），主要应用于大数据实时处理领域。 1.2 消息队列1.2.1 传统消息队列的应用场景MQ传统应用场景之异步处理：   使用消息队列的好处  解耦允许你独立的扩展或修改两边的处理过程，只要确保它们遵守同样的接口约束。 可恢复性系统的一部分组件失效时，不会影响到">
@@ -475,7 +475,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-12-13 00:34:58" itemprop="dateModified" datetime="2019-12-13T00:34:58+08:00">2019-12-13</time>
+                <time title="修改时间：2019-12-13 00:42:09" itemprop="dateModified" datetime="2019-12-13T00:42:09+08:00">2019-12-13</time>
               </span>
             
           
@@ -516,7 +516,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">8.2k</span>
+              <span title="本文字数">8.4k</span>
             </span>
           
 
@@ -528,7 +528,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">7 分钟</span>
+              <span title="阅读时长">8 分钟</span>
             </span>
           
 
@@ -642,17 +642,17 @@
 
 <blockquote>
 <p>在first-0中，first是主题名称，0为分区</p>
-<p>这里first主题是3个分区，2个副本，所以在三台服务器的日志文件中共可以看到6个first相关的数据：</p>
+<p>这里主题first是3个分区，2个副本，所以在三台服务器的日志文件中共可以看到6个first相关的数据：</p>
 <p>first-0、first-1、first-2、first-0、first-1、first-2</p>
 <p>如果创建的是2个分区，3个副本，则数据为：</p>
 <p>first-0、first-0、first-0、first-1、first-1、first-1</p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-topics.sh --zookeeper server1:2181 --create --replication-factor 0 --partitions 3 --topic first</span><br><span class="line">Error while executing topic command : replication factor must be larger than 0</span><br><span class="line">[2019-12-13 00:39:23,664] ERROR org.apache.kafka.common.errors.InvalidReplicationFactorException: replication factor must be larger than 0</span><br><span class="line"> (kafka.admin.TopicCommand$)</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-topics.sh --zookeeper server1:2181 --create --replication-factor 4 --partitions 2 --topic first</span><br><span class="line">Error <span class="keyword">while</span> executing topic <span class="built_in">command</span> : replication factor: 4 larger than available brokers: 3</span><br><span class="line">[2019-12-13 00:22:07,440] ERROR org.apache.kafka.common.errors.InvalidReplicationFactorException: replication factor: 4 larger than available brokers: 3</span><br><span class="line"> (kafka.admin.TopicCommand$)</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[2019-12-13 00:23:10,391] ERROR org.apache.kafka.common.errors.InvalidReplicationFactorException: replication factor must be larger than 0</span><br><span class="line"> (kafka.admin.TopicCommand$)</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p>这里可以看到，如果副本数等于0或者大于服务器个数，都是会报错的</p>
+<p>这里可以看到，如果副本数等于0或者大于brokers的数量，都是会报错的</p>
 </blockquote>
 <p>3、删除topic</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-topics.sh --zookeeper server1:2181 --delete --topic first</span><br><span class="line">Topic first is marked for deletion.</span><br><span class="line">Note: This will have no impact if delete.topic.enable is not set to true.</span><br></pre></td></tr></table></figure>
@@ -663,7 +663,7 @@
 
 <p>其中9092是kafka服务器需要监听的端口号，在server.properties文件中配置。</p>
 <p>5、消费消息 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#通过zookeeper消费，这是kafka 0.9版本之前的消费方式，0.9版本之前消息是存放在zookeeper中的</span></span><br><span class="line">[kaizhang@server3 kafka]$ bin/kafka-console-consumer.sh  --zookeeper server1:2181 --topic first  </span><br><span class="line"><span class="comment">#通过kafka 0.9版本之后的消费方式</span></span><br><span class="line">[kaizhang@server3 kafka]$ bin/kafka-console-consumer.sh --bootstrap-server server1:9092 --topic first</span><br><span class="line"><span class="comment">#从最初的的消息开始</span></span><br><span class="line">[kaizhang@server3 kafka]$ bin/kafka-console-consumer.sh --bootstrap-server server1:9092 --topic first  --from-beginning</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#通过zookeeper消费，这是kafka 0.9版本之前的消费方式，0.9版本之前消息是存放在zookeeper中的</span></span><br><span class="line">[kaizhang@server3 kafka]$ bin/kafka-console-consumer.sh  --zookeeper server1:2181 --topic first  </span><br><span class="line"><span class="comment">#通过kafka 0.9版本之后的消费方式</span></span><br><span class="line">[kaizhang@server3 kafka]$ bin/kafka-console-consumer.sh --bootstrap-server server1:9092 --topic first</span><br><span class="line"><span class="comment">#从最初的的消息开始读取</span></span><br><span class="line">[kaizhang@server3 kafka]$ bin/kafka-console-consumer.sh --bootstrap-server server1:9092 --topic first  --from-beginning</span><br></pre></td></tr></table></figure>
 
 <p>–from-beginning：会把主题中以往所有的数据都读取出来。 </p>
 <p>6、查看某个 Topic 的详情 </p>
@@ -952,7 +952,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">27 分钟</span>
+    <span title="站点阅读时长">28 分钟</span>
   
 </div>
 
