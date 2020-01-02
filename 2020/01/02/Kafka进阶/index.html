@@ -138,16 +138,24 @@
 
 
 
-  <meta name="description" content="我不知道将来如何，只想做好当前的自己！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SparksFlyMe&#39;Blog">
-<meta property="og:url" content="https://SparksFlyMe.github.io/archives/2019/11/index.html">
+  <meta name="description" content="第1章 Kafka 架构深入1.1 Kafka 工作流程及文件存储机制 Kafka 工作流程    &amp;emsp;&amp;emsp;图中的0、1、2、3等就是偏移量”offset“，每个分区都有自己的从头开始的偏移量，是每个分区独立的，所以kafka中不能保证消息的全局有序性，只能保证区内有序。 &amp;emsp;&amp;emsp;Kafka 中消息是以 topic 进行分类的，生产者生产消息，消费者消费消息，都是面">
+<meta name="keywords" content="Kafka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka进阶">
+<meta property="og:url" content="https://SparksFlyMe.github.io/2020/01/02/Kafka进阶/index.html">
 <meta property="og:site_name" content="SparksFlyMe&#39;Blog">
-<meta property="og:description" content="我不知道将来如何，只想做好当前的自己！">
+<meta property="og:description" content="第1章 Kafka 架构深入1.1 Kafka 工作流程及文件存储机制 Kafka 工作流程    &amp;emsp;&amp;emsp;图中的0、1、2、3等就是偏移量”offset“，每个分区都有自己的从头开始的偏移量，是每个分区独立的，所以kafka中不能保证消息的全局有序性，只能保证区内有序。 &amp;emsp;&amp;emsp;Kafka 中消息是以 topic 进行分类的，生产者生产消息，消费者消费消息，都是面">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/kafka工作流程.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/Kafka文件存储机制.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/index文件与log文件详解.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/分区原则.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/数据可靠性.png">
+<meta property="og:updated_time" content="2020-01-02T17:03:59.868Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SparksFlyMe&#39;Blog">
-<meta name="twitter:description" content="我不知道将来如何，只想做好当前的自己！">
+<meta name="twitter:title" content="Kafka进阶">
+<meta name="twitter:description" content="第1章 Kafka 架构深入1.1 Kafka 工作流程及文件存储机制 Kafka 工作流程    &amp;emsp;&amp;emsp;图中的0、1、2、3等就是偏移量”offset“，每个分区都有自己的从头开始的偏移量，是每个分区独立的，所以kafka中不能保证消息的全局有序性，只能保证区内有序。 &amp;emsp;&amp;emsp;Kafka 中消息是以 topic 进行分类的，生产者生产消息，消费者消费消息，都是面">
+<meta name="twitter:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/kafka工作流程.png">
 
 
 
@@ -155,7 +163,7 @@
 
   
   
-  <link rel="canonical" href="https://SparksFlyMe.github.io/archives/2019/11/">
+  <link rel="canonical" href="https://SparksFlyMe.github.io/2020/01/02/Kafka进阶/">
 
 
 
@@ -165,7 +173,7 @@
   };
 </script>
 
-  <title>归档 | SparksFlyMe'Blog</title>
+  <title>Kafka进阶 | SparksFlyMe'Blog</title>
   
 
 
@@ -213,7 +221,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -319,7 +327,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -389,104 +397,291 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 8 篇日志。 继续努力。
-      </span>
-      
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://SparksFlyMe.github.io/2020/01/02/Kafka进阶/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kaizhang">
+      <meta itemprop="description" content="我不知道将来如何，只想做好当前的自己！">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SparksFlyMe'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/11/30/Kafka入门+实战/" itemprop="url">
-            
-              <span itemprop="name">Kafka入门+实战</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Kafka进阶
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-30T13:05:00+08:00" content="2019-11-30">
-          11-30
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
 
+          
+          
+          
 
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-02 20:20:00" itemprop="dateCreated datePublished" datetime="2020-01-02T20:20:00+08:00">2020-01-02</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-01-03 01:03:59" itemprop="dateModified" datetime="2020-01-03T01:03:59+08:00">2020-01-03</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">2.4k</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">2 分钟</span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <h2 id="第1章-Kafka-架构深入"><a href="#第1章-Kafka-架构深入" class="headerlink" title="第1章 Kafka 架构深入"></a>第1章 Kafka 架构深入</h2><h3 id="1-1-Kafka-工作流程及文件存储机制"><a href="#1-1-Kafka-工作流程及文件存储机制" class="headerlink" title="1.1 Kafka 工作流程及文件存储机制"></a>1.1 Kafka 工作流程及文件存储机制</h3><ul>
+<li>Kafka 工作流程</li>
+</ul>
+<img src="/2020/01/02/Kafka进阶/kafka工作流程.png" title="kafka工作流程">
+
+<p>&emsp;&emsp;图中的0、1、2、3等就是偏移量”offset“，每个分区都有自己的从头开始的偏移量，是每个分区独立的，所以kafka中不能保证消息的全局有序性，只能保证区内有序。</p>
+<p>&emsp;&emsp;Kafka 中消息是以 <font color="red">topic</font> 进行分类的，生产者生产消息，消费者消费消息，都是面向 topic的。</p>
+<p>&emsp;&emsp;topic 是逻辑上的概念，而 partition 是物理上的概念，每个 partition 对应于一个 log 文件，该 log 文件中存储的就是 producer 生产的数据。Producer 生产的数据会被不断追加到该log 文件末端，且每条数据都有自己的 offset。消费者组中的每个消费者，都会实时记录自己消费到了哪个 offset，以便出错恢复时，从上次的位置继续消费。 </p>
+<ul>
+<li>Kafka文件存储机制</li>
+</ul>
+<img src="/2020/01/02/Kafka进阶/Kafka文件存储机制.png" title="Kafka文件存储机制">
+
+<p>&emsp;&emsp;由于生产者生产的消息会不断追加到 log 文件末尾，为防止 log 文件过大导致数据定位效率低下，Kafka 采取了<font color="red" size="4">分片</font>和<font color="red" size="4">索引</font>机制，将每个 partition 分为多个 segment（当log文件达到指定大小时，自动生成新文件，默认是1G）。每个 segment对应两个文件——“.index”文和“.log”文件。这些文件位于一个文件夹下，该文件夹的命名规则为：topic 名称+分区序号。例如，first 这个 topic 有三个分区，则其对应的文件夹为 first-0, first-1, first-2。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">00000000000000000000.index</span><br><span class="line">00000000000000000000.log</span><br><span class="line">00000000000000170410.index</span><br><span class="line">00000000000000170410.log</span><br><span class="line">00000000000000239430.index</span><br><span class="line">00000000000000239430.log</span><br></pre></td></tr></table></figure>
+
+<p><br>index 和 log 文件以当前 segment 的第一条消息的 offset 命名。下图为 index 文件和 log 文件的结构示图。 </p>
+<img src="/2020/01/02/Kafka进阶/index文件与log文件详解.png" title="index文件与log文件详解">
+
+<p>&emsp;&emsp;“.index”文件存储大量的索引信息，“.log”文件存储大量的数据，索引文件中的元 数据指向对应数据文件中message 的物理偏移地址。 </p>
+<h3 id="1-2-Kafka生产者"><a href="#1-2-Kafka生产者" class="headerlink" title="1.2 Kafka生产者"></a>1.2 Kafka生产者</h3><h4 id="1-2-1-分区策略"><a href="#1-2-1-分区策略" class="headerlink" title="1.2.1 分区策略"></a>1.2.1 分区策略</h4><h5 id="（1）-分区的原因"><a href="#（1）-分区的原因" class="headerlink" title="（1） 分区的原因"></a>（1） 分区的原因</h5><ol>
+<li>方便在集群中扩展，每个 Partition 可以通过调整以适应它所在的机器，而一个 topic又可以有多个 Partition组成，因此整个集群就可以适应任意大小的数据了；</li>
+<li>可以提高并发，因为可以以 Partition 为单位读写了。 </li>
+</ol>
+<h5 id="（2）分区的原则"><a href="#（2）分区的原则" class="headerlink" title="（2）分区的原则"></a>（2）分区的原则</h5><p>&emsp;&emsp;我们需要将 producer 发送的数据封装成一个 <font color="red">ProducerRecord</font> 对象。 </p>
+<img src="/2020/01/02/Kafka进阶/分区原则.png" title="分区原则">
+
+<ol>
+<li>指明 partition 的情况下，直接将指明的值直接作为 partiton 值； </li>
+<li>没有指明 partition 值但有 key 的情况下，将 key 的 hash 值与 topic 的 partition 数进行取余得到 partition 值； </li>
+<li>既没有 partition 值又没有 key 值的情况下，第一次调用时随机生成一个整数（后面每次调用在这个整数上自增），将这个值与 topic 可用的 partition 总数取余得到 partition 值，也就是常说的 round-robin 算法。 </li>
+</ol>
+<h4 id="1-2-2-数据可靠性保证"><a href="#1-2-2-数据可靠性保证" class="headerlink" title="1.2.2 数据可靠性保证"></a>1.2.2 数据可靠性保证</h4><p>&emsp;&emsp;为保证 producer 发送的数据，能可靠的发送到指定的 topic，topic 的每个 partition 收到producer 发送的数据后，都需要向 producer 发送 ack（acknowledgement 确认收到），如果producer 收到 ack，就会进行下一轮的发送，否则重新发送数据。 </p>
+<img src="/2020/01/02/Kafka进阶/数据可靠性.png" title="数据可靠性">
+
+<h5 id="（1）副本数据同步策略"><a href="#（1）副本数据同步策略" class="headerlink" title="（1）副本数据同步策略"></a>（1）副本数据同步策略</h5><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>半数以上完成同步，就发送 <strong>ack</strong></td>
+<td>延迟低</td>
+<td>选举新的 leader   时，容忍 n 台节点的故障，需要 2n+1 个副   本</td>
+</tr>
+<tr>
+<td>全部完成同步，才发送   <strong>ack</strong></td>
+<td>选举新的 leader   时，容忍 n 台节点的故障，需要 n+1 个副   本</td>
+<td>延迟高</td>
+</tr>
+</tbody></table>
+<p>Kafka 选择了第二种方案，原因如下：</p>
+<ol>
+<li><p>同样为了容忍 n 台节点的故障，第一种方案需要 2n+1 个副本，而第二种方案只需要 n+1个副本，而Kafka 的每个分区都有大量的数据，第一种方案会造成大量数据的冗余。</p>
+</li>
+<li><p>虽然第二种方案的网络延迟会比较高，但网络延迟对 Kafka 的影响较小。</p>
+</li>
+</ol>
+<h5 id="（2）ISR"><a href="#（2）ISR" class="headerlink" title="（2）ISR"></a>（2）ISR</h5><p>&emsp;&emsp;采用第二种方案之后，设想以下情景：leader 收到数据，所有 follower 都开始同步数据，但有一个 follower，因为某种故障，迟迟不能与 leader 进行同步，那 leader 就要一直等下去，直到它完成同步，才能发送 ack。这个问题怎么解决呢？ </p>
+<p> &emsp;&emsp;Leader 维护了一个动态的 in-sync replica set (ISR，同步副本)，意为和 leader 保持同步的 follower 集合。当 ISR 中的 follower 完成数据的同步之后，leader 就会给 follower 发送 ack。如果 follower长时间未 向 leader 同 步 数 据 ， 则 该 follower 将 被 踢 出 ISR ， 该 时 间 阈 值 由 <strong>replica.lag.time.max.ms</strong> 参数设定。Leader 发生故障之后，就会从 ISR 中选举新的 leader。 </p>
+
+      
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/Kafka/" rel="tag"><i class="fa fa-tag"></i> Kafka</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/30/Kafka入门+实战/" rel="next" title="Kafka入门+实战">
+                <i class="fa fa-chevron-left"></i> Kafka入门+实战
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -506,8 +701,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -627,6 +831,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-Kafka-架构深入"><span class="nav-number">1.</span> <span class="nav-text">第1章 Kafka 架构深入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Kafka-工作流程及文件存储机制"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Kafka 工作流程及文件存储机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Kafka生产者"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Kafka生产者</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-分区策略"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 分区策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）-分区的原因"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">（1） 分区的原因</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）分区的原则"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">（2）分区的原则</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-数据可靠性保证"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 数据可靠性保证</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）副本数据同步策略"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">（1）副本数据同步策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）ISR"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">（2）ISR</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -792,6 +1013,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
 
   
 
@@ -807,6 +1032,8 @@
 
   
 
+
+  
 
 
   
