@@ -530,18 +530,14 @@
 <ol>
 <li><p>标注在构造器上：默认加载在ioc容器中的组件，容器启动会调用无参构造器创建对象，再进行初始化赋值等操作。 构造器要用的组件，都是从容器中获取。如果组件只有一个有参构造器，这个有参构造器的@Autowired可以省略，参数位置的组件还是可以自动从容器中获取。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Student student;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Autowired</span> <span class="comment">//可以省略</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PersonService</span><span class="params">(Student student)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.student = student;</span><br><span class="line">        System.out.println(<span class="string">"PersonService 有参构造器。。。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 </li>
 </ol>
-<ol start="2">
+<ol>
 <li><p>标注在参数上：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Student student;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PersonService</span><span class="params">(@Autowired Student student)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.student = student;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>标注在方法上：Spring容器创建当前对象，就会调用方法，完成赋值；方法使用的参数，自定义类型的值从ioc容器中获取。常用的有：@Bean + 方法参数，参数从容器中获取</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Student student;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> student 这里方法的参数（student）的值，从ioc容器中获取</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Student <span class="title">getStudent</span><span class="params">(Student student)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.student = student;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <hr>
@@ -738,10 +734,6 @@
                     
                       
                     
-                      
-                    
-                      
-                    
                     <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
@@ -840,7 +832,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">41k</span>
+    <span title="站点总字数">43k</span>
   
 
   
@@ -849,7 +841,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">37 分钟</span>
+    <span title="站点阅读时长">39 分钟</span>
   
 </div>
 
