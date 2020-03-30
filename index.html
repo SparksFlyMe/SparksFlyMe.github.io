@@ -662,7 +662,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-01-04 16:37:24" itemprop="dateModified" datetime="2020-01-04T16:37:24+08:00">2020-01-04</time>
+                <time title="修改时间：2020-03-30 23:36:50" itemprop="dateModified" datetime="2020-03-30T23:36:50+08:00">2020-03-30</time>
               </span>
             
           
@@ -703,7 +703,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">4.4k</span>
+              <span title="本文字数">9.6k</span>
             </span>
           
 
@@ -715,7 +715,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">4 分钟</span>
+              <span title="阅读时长">9 分钟</span>
             </span>
           
 
@@ -868,7 +868,7 @@ Kafka 工作流程
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-01-03 00:10:43" itemprop="dateModified" datetime="2020-01-03T00:10:43+08:00">2020-01-03</time>
+                <time title="修改时间：2020-03-29 00:42:08" itemprop="dateModified" datetime="2020-03-29T00:42:08+08:00">2020-03-29</time>
               </span>
             
           
@@ -2331,7 +2331,7 @@ Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计�
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">43k</span>
+    <span title="站点总字数">48k</span>
   
 
   
@@ -2340,7 +2340,7 @@ Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计�
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">39 分钟</span>
+    <span title="站点阅读时长">44 分钟</span>
   
 </div>
 
@@ -2902,47 +2902,6 @@ Zookeeper 从设计模式角度来理解：是一个基于观察者模式设计�
   
 
   
-<script>
-  $('.highlight').not('.gist .highlight').each(function(i, e) {
-    var $wrap = $('<div>').addClass('highlight-wrap');
-    $(e).after($wrap);
-    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
-      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
-        return $(e).text();
-      }).toArray().join('\n');
-      var ta = document.createElement('textarea');
-      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
-      ta.style.top = yPosition + 'px'; // Prevent page scroll
-      ta.style.position = 'absolute';
-      ta.style.opacity = '0';
-      ta.readOnly = true;
-      ta.value = code;
-      document.body.appendChild(ta);
-      const selection = document.getSelection();
-      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
-      ta.select();
-      ta.setSelectionRange(0, code.length);
-      ta.readOnly = false;
-      var result = document.execCommand('copy');
-      
-        if (result) $(this).text('复制成功');
-        else $(this).text('复制失败');
-      
-      ta.blur(); // For iOS
-      $(this).blur();
-      if (selected) {
-        selection.removeAllRanges();
-        selection.addRange(selected);
-      }
-    })).on('mouseleave', function(e) {
-      var $b = $(this).find('.copy-btn');
-      setTimeout(function() {
-        $b.text('复制');
-      }, 300);
-    }).append(e);
-  })
-</script>
-
 
   
 

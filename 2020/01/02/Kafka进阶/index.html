@@ -152,7 +152,10 @@
 <meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/分区原则.png">
 <meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/数据可靠性.png">
 <meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/Log文件中的HW和LEO.png">
-<meta property="og:updated_time" content="2020-01-04T08:37:24.077Z">
+<meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/传统文件拷贝.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/kafka零拷贝.png">
+<meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/Leader选举流程.png">
+<meta property="og:updated_time" content="2020-03-30T15:36:50.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka进阶">
 <meta name="twitter:description" content="第1章 Kafka 架构深入1.1 Kafka 工作流程及文件存储机制 Kafka 工作流程   &amp;emsp;&amp;emsp;图中的0、1、2、3等就是偏移量”offset“，每个分区都有自己的从头开始的偏移量，是每个分区独立的，所以kafka中不能保证消息的全局有序性，只能保证区内有序。 &amp;emsp;&amp;emsp;Kafka 中消息是以 topic 进行分类的，生产者生产消息，消费者消费消息，都是面向">
@@ -476,7 +479,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-01-04 16:37:24" itemprop="dateModified" datetime="2020-01-04T16:37:24+08:00">2020-01-04</time>
+                <time title="修改时间：2020-03-30 23:36:50" itemprop="dateModified" datetime="2020-03-30T23:36:50+08:00">2020-03-30</time>
               </span>
             
           
@@ -517,7 +520,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">4.4k</span>
+              <span title="本文字数">9.6k</span>
             </span>
           
 
@@ -529,7 +532,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">4 分钟</span>
+              <span title="阅读时长">9 分钟</span>
             </span>
           
 
@@ -590,11 +593,11 @@
 <tr>
 <td>半数以上完成同步，就发送 <strong>ack</strong></td>
 <td>延迟低</td>
-<td>选举新的 leader   时，容忍 n 台节点的故障，需要 2n+1 个副   本</td>
+<td>选举新的 leader   时，容忍 n 台节点的故障，需要 2n+1 个副本</td>
 </tr>
 <tr>
 <td>全部完成同步，才发送   <strong>ack</strong></td>
-<td>选举新的 leader   时，容忍 n 台节点的故障，需要 n+1 个副   本</td>
+<td>选举新的 leader   时，容忍 n 台节点的故障，需要 n+1 个副本</td>
 <td>延迟高</td>
 </tr>
 </tbody>
@@ -602,7 +605,7 @@
 </div>
 <p>Kafka 选择了第二种方案，原因如下：</p>
 <ol>
-<li><p>同样为了容忍 n 台节点的故障，第一种方案需要 2n+1 个副本，而第二种方案只需要 n+1个副本，而Kafka 的每个分区都有大量的数据，第一种方案会造成大量数据的冗余。</p>
+<li><p>同样为了容忍 n 台节点的故障，第一种方案需要 2n+1 个副本，而第二种方案只需要 n+1个副本，而Kafka 的每个分区都有大量的数据，第一种方案会造成大量数据的冗余。【半数以上完成同步才可以发ACK，如果挂了n台，那么就需要有另外n台正常发送（这样正常发送的刚好是总数（挂的和没挂的）的一半（n（挂的）+n（正常的）=2n））,因为是半数以上所以2n+1.(所以总数2n+1的时候最多只能容忍n台有故障)】</p>
 </li>
 <li><p>虽然第二种方案的网络延迟会比较高，但网络延迟对 Kafka 的影响较小。</p>
 </li>
@@ -634,10 +637,67 @@
 </ul>
 <p>&emsp;&emsp;<font color="red" size="4">注意：这只能保证副本之间的数据一致性，并不能保证数据不丢失或者不重复。 </font></p>
 <h4 id="1-2-3-Exactly-Once-语义"><a href="#1-2-3-Exactly-Once-语义" class="headerlink" title="1.2.3 Exactly Once 语义"></a>1.2.3 Exactly Once 语义</h4><p>&emsp;&emsp;将服务器的 ACK 级别设置为-1，可以保证 Producer 到 Server 之间不会丢失数据，即 <font color="red">At Least Once 语义</font>。相对的，将服务器 ACK 级别设置为 0，可以保证生产者每条消息只会被发送一次，即 <font color="red">At Most Once  语义</font>。 </p>
-<p>&emsp;&emsp;At Least Once 可以保证数据不丢失，但是不能保证数据不重复；相对的，At Most Once可以保证数据不重复，但是不能保证数据不丢失。但是，对于一些非常重要的信息，比如说交易数据，下游数据消费者要求数据既不重复也不丢失，即 <font color="red">Exactly Once 语义</font>。在 0.11 版本以前的 Kafka，对此是无能为力的，只能保证数据不丢失，再在下游消费者对数据做全局去重。对于多个下游应用的情况，每个都需要单独做全局去重，这就对性能造成了很大影响。 </p>
+<p>&emsp;&emsp;At Least Once 可以保证数据不丢失，但是不能保证数据不重复；相对的，At Most Once可以保证数据不重复，但是不能保证数据不丢失。<font color="red">但是，对于一些非常重要的信息，比如说交易数据，下游数据消费者要求数据既不重复也不丢失，即 Exactly Once 语义</font>。在 0.11 版本以前的 Kafka，对此是无能为力的，只能保证数据不丢失，再在下游消费者对数据做全局去重。对于多个下游应用的情况，每个都需要单独做全局去重，这就对性能造成了很大影响。 </p>
 <p>&emsp;&emsp;0.11 版本的 Kafka，引入了一项重大特性：幂等性。所谓的幂等性就是指 Producer 不论向 Server 发送多少次重复数据，Server 端都只会持久化一条。幂等性结合 At Least Once 语义，就构成了 Kafka 的 Exactly Once 语义。即：</p>
 <script type="math/tex; mode=display">
-At Least Once + 幂等性 = Exactly Once</script>
+At Least Once + 幂等性 = Exactly Once</script><p>&emsp;&emsp;要启用幂等性，只需要将 Producer 的参数中 <code>enable.idompotence</code> 设置为 true 即可。Kafka的幂等性实现其实就是将原来下游需要做的去重放在了数据上游。开启幂等性的 Producer 在初始化的时候会被分配一个 PID，发往同一 Partition 的消息会附带 Sequence Number。而Broker 端会对<code>&lt;PID, Partition, SeqNumber&gt;</code>做缓存，当具有相同主键的消息提交时，Broker 只会持久化一条。 </p>
+<p>&emsp;&emsp;但是 PID 重启就会变化，同时不同的 Partition 也具有不同主键，所以幂等性无法保证跨分区跨会话的 Exactly Once。 </p>
+<h3 id="1-3-Kafka消费者"><a href="#1-3-Kafka消费者" class="headerlink" title="1.3 Kafka消费者"></a>1.3 Kafka消费者</h3><h4 id="1-3-1-消费方式"><a href="#1-3-1-消费方式" class="headerlink" title="1.3.1 消费方式"></a>1.3.1 消费方式</h4><p>&emsp;&emsp;<font color="red">consumer 采用 pull（拉）模式从 broker 中读取数据</font>。<br>&emsp;&emsp;<font color="red">push（推）模式很难适应消费速率不同的消费者，因为消息发送速率是由 broker 决定的</font>。它的目标是尽可能以最快速度传递消息，但是这样很容易造成 consumer 来不及处理消息，典型的表现就是拒绝服务以及网络拥塞。而 pull 模式则可以根据 consumer 的消费能力以适当的速率消费消息。<br>&emsp;&emsp;<font color="red">pull 模式不足之处是，如果 kafka 没有数据，消费者可能会陷入循环中，一直返回空数据</font>。针对这一点，Kafka 的消费者在消费数据时会传入一个时长参数 timeout，如果当前没有数据可供消费，consumer 会等待一段时间之后再返回，这段时长即为 timeout。 </p>
+<h4 id="1-3-2-分区分配策略"><a href="#1-3-2-分区分配策略" class="headerlink" title="1.3.2 分区分配策略"></a>1.3.2 分区分配策略</h4><p>&emsp;&emsp;一个 consumer group 中有多个 consumer，一个 topic 有多个 partition，所以必然会涉及到 partition 的分配问题，即确定那个 partition 由哪个 consumer 来消费。 </p>
+<p>&emsp;&emsp;Kafka分区分配策略，就是它的内部的默认的分区分配策略：Range（范围） 和 RoundRobin（轮询）。当下面的事情发生的时候，Kafka将会进行一次分区分配。</p>
+<p>​    1、当同一个Consumer Group 内新增消费者。（消费者层面发生改动）</p>
+<p>​    2、消费者离开当前所属的Consumer Group，包括Shuts down（关闭、停工）或者是crashes（崩溃）。（消费者层面发生改动）</p>
+<p>​    3、消费者订阅的主题新增分区的时候</p>
+<p>&emsp;&emsp;将分区的所有权从一个消费者移到另一个消费者成为重新平衡（rebalance），如何rebalance就涉及到分区分配策略。</p>
+<p>&emsp;&emsp;我们假设有一个名为Top1的主题，它有十个分区，然后我们有两个消费者（C1、C2）来消费这十个分区里面的数据，而且C1的num.streams=1，C2的num.streams=2。</p>
+<p><strong>第一个默认的分区策略：Range Startegy（根据范围消费）</strong></p>
+<p>&emsp;&emsp;Range startegy是对每个主题而言的 ， 首先对同一个主题里面的分区按照序号进行排序，并对消费者按照字母进行排序。在对十个分区排序的话是0-9；消费者线程排完序是C1-0，C2-0，C2-1。然后用partitions的总数除以消费者的总数来决定每个消费者线程消费几个分区。如果有余数，那么前面的几个消费者线程将会多消费一个分区。在我们的例子里面，我们有十个分区，三个消费者线程，10/3=3—-1，那么消费者线程C1-0  将会多消费一个分区，所以最后分区分配的结构看起来是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C1-0将消费0,1,2,3分区</span><br><span class="line"></span><br><span class="line">C2-0将消费4,5,6分区</span><br><span class="line"></span><br><span class="line">C2-1将消费7,8,9分区</span><br></pre></td></tr></table></figure>
+<p>如果有第十一个分区的话，那么分区是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C1-0将消费0,1,2,3分区</span><br><span class="line"></span><br><span class="line">C2-0将消费4,5,6,7分区</span><br><span class="line"></span><br><span class="line">C2-1将消费8,9,10分区</span><br></pre></td></tr></table></figure>
+<p>如果我们有2个主题（T1和T2），分别都有十个分区，那么最后的分配结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C1-0将消费T1主题中的0,1,2,3分区以及T2主题中0,1,2,3分区</span><br><span class="line"></span><br><span class="line">C2-0将消费T1主题中的4,5,6分区以及T2主题中的4,5,6,分区</span><br><span class="line"></span><br><span class="line">C2-1将消费T1主题中的7,8,9分区以及T2主题中的7,8,9分区</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这就是消费的策略！ 就是用总的分区数/消费者线程总数=每个消费者线程应该消费的分区数。当还有余数的时候就将余数分别分发到另外的消费组线程中。 </p>
+<p>&emsp;&emsp;在这里我们不难看出来。C1-0消费者线程比其他消费者线程多消费了两个分区，这就是Range Strategy的一个明显的弊端。 当分区很多的时候，会有个别的线程压力巨大！</p>
+<p><strong>第二个默认的分区策略：RoundRobin strategy（轮询的消费策略）</strong></p>
+<p>在使用RoundRobin Starategy的时候我们必须满足两个条件：</p>
+<p>  1、同一个consumer Group里面的所有消费者的num.streams必须相等；</p>
+<p>  2、每个消费者订阅的 主题必须相同;</p>
+<p>&emsp;&emsp;在这里我们假设2个消费者的num.streams=2. RoundRobin starategy的工作原理： <font color="red">将所有主题的分区组成TopicAndPartition列表，然后对TopAndPartition列表按照hashcode进行排序</font>。最后按照round-robin风格将分区分别分配给不同的消费者线程。</p>
+<p>&emsp;&emsp;在我们的例子中，假如按照hashcode排序完的topic-partition组依次为T1-5,T1-3,T1-0.T1-8.T1-2,T1-1,T1-4,T1-6,T1-9，我们的消费者线程排序为C1-0, C1-1 ,C2-0,C2-1，最后分区分配结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">C1-0将消费T1-5 , T1-2 , T1-6 分区；</span><br><span class="line"></span><br><span class="line">C1-1将消费T1-3 , T1-1 , T1-9 分区；</span><br><span class="line"></span><br><span class="line">C2-0将消费T1-0 , T1-4分区；</span><br><span class="line"></span><br><span class="line">C2-1将消费T1-8 , T1-7分区；</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;我们可以通过<code>partition.assignment.strategy</code>参数选择range或roundrobin。 partition.assignment.strategy参数<font color="red">默认的值是range</font>。</p>
+<h4 id="1-3-3-offset-的维护"><a href="#1-3-3-offset-的维护" class="headerlink" title="1.3.3 offset 的维护"></a>1.3.3 offset 的维护</h4><p>&emsp;&emsp;由于 consumer 在消费过程中可能会出现断电宕机等故障，consumer 恢复后，需要从故障前的位置的继续消费，所以 consumer 需要实时记录自己消费到了哪个 offset，以便故障恢复后继续消费。</p>
+<p>&emsp;&emsp;<font color="red">Kafka 0.9 版本之前，consumer 默认将 offset 保存在 Zookeeper 中，从 0.9 版本开始，consumer 默认将 offset 保存在 Kafka 一个内置的 topic 中，该 topic 为__consumer_offsets。 </font></p>
+<p>1）修改配置文件 consumer.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exclude.internal.topics=false</span><br><span class="line">（没有就新增）</span><br></pre></td></tr></table></figure>
+<p>2）读取 offset </p>
+<p>​    0.11.0.0 之前版本: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --topic __consumer_offsets -zookeeper server1:2181 --formatter &quot;kafka.coordinator.GroupMetadataManager\$OffsetsMessageFormatter&quot; --consumer.config config/consumer.properties --from-beginning</span><br></pre></td></tr></table></figure>
+<p>​    0.11.0.0 之后版本(含): </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --topic __consumer_offsets -zookeeper server1:2181 --formatter &quot;kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageForm atter&quot; --consumer.config config/consumer.properties --frombeginning</span><br></pre></td></tr></table></figure>
+<h4 id="1-3-4-消费者组案例"><a href="#1-3-4-消费者组案例" class="headerlink" title="1.3.4 消费者组案例"></a>1.3.4 消费者组案例</h4><p>1）需求：测试同一个消费者组中的消费者，同一时刻只能有一个消费者消费。 </p>
+<p>2）案例实操 </p>
+<p>（1）在 hadoop102、hadoop103 上修改/opt/software/kafka/config/consumer.properties 配置文件中的 group.id 属性为任意组名。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 config]$ vi consumer.properties </span><br><span class="line">group.id=kaizhang</span><br></pre></td></tr></table></figure>
+<p>（2）在 server1、server2上分别启动消费者 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-console-consumer.sh --zookeeper server1:2181 --topic first --consumer.config config/consumer.properties</span><br><span class="line">[kaizhang@server2 kafka]$ bin/kafka-console-consumer.sh --bootstrap-server server1:9092 --topic first --consumer.config config/consumer.properties</span><br></pre></td></tr></table></figure>
+<p>（3）在 server3上启动生产者 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server3 kafka]$ bin/kafka-console-producer.sh --broker-list hadoop102:9092 --topic first </span><br><span class="line">&gt;hello world</span><br></pre></td></tr></table></figure>
+<p>（4）查看 server1和 server2的接收者。 </p>
+<p>&emsp;&emsp;同一时刻只有一个消费者接收到消息。 </p>
+<h3 id="1-4-Kafka-高效读写数据"><a href="#1-4-Kafka-高效读写数据" class="headerlink" title="1.4 Kafka 高效读写数据"></a>1.4 Kafka 高效读写数据</h3><p>1）顺序写磁盘 </p>
+<p>&emsp;&emsp;Kafka 的 producer 生产数据，要写入到 log 文件中，写的过程是一直追加到文件末端，为顺序写。官网有数据表明，同样的磁盘，顺序写能到 600M/s，而随机写只有 100K/s。这与磁盘的机械机构有关，顺序写之所以快，是因为其省去了大量磁头寻址的时间。 </p>
+<p>2）零拷贝技术 </p>
+<p>&emsp;&emsp;零拷贝：零拷贝并不是不需要拷贝，而是减少不必要的拷贝次数。通常是说在IO读写过程中。</p>
+<img src="/2020/01/02/Kafka进阶/传统文件拷贝.png" title="传统文件拷贝">
+<p>传统的读取文件数据并发送到网络的步骤如下：<br> （1）操作系统将数据从磁盘文件中读取到内核空间的页面缓存；<br> （2）应用程序将数据从内核空间读入用户空间缓冲区；<br> （3）应用程序将读到数据写回内核空间并放入socket缓冲区；<br> （4）操作系统将数据从socket缓冲区复制到网卡接口，此时数据才能通过网络发送。</p>
+<img src="/2020/01/02/Kafka进阶/kafka零拷贝.png" title="kafka零拷贝">
+<p>&emsp;&emsp;“零拷贝技术”只用将磁盘文件的数据复制到页面缓存中一次，然后将数据从页面缓存直接发送到网络中（发送给不同的订阅者时，都可以使用同一个页面缓存），避免了重复复制操作。</p>
+<p>&emsp;&emsp;如果有10个消费者，传统方式下，数据复制次数为4*10=40次，而使用“零拷贝技术”只需要1+10=11次，一次为从磁盘复制到页面缓存，10次表示10个消费者各自读取一次页面缓存。</p>
+<h3 id="1-5-Zookeeper-在-Kafka-中的作用"><a href="#1-5-Zookeeper-在-Kafka-中的作用" class="headerlink" title="1.5 Zookeeper 在 Kafka 中的作用"></a>1.5 Zookeeper 在 Kafka 中的作用</h3><p>&emsp;&emsp;Kafka 集群中有一个 broker 会被选举为 Controller，负责管理集群 broker 的上下线，所有 topic 的分区副本分配和 leader 选举等工作。<br>&emsp;&emsp;Controller 的管理工作都是依赖于 Zookeeper 的。 </p>
+<p>以下为 partition 的 leader 选举过程：<br><img src="/2020/01/02/Kafka进阶/Leader选举流程.png" title="Leader选举流程"></p>
+
       
     </div>
 
@@ -873,7 +933,7 @@ At Least Once + 幂等性 = Exactly Once</script>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-Kafka-架构深入"><span class="nav-number">1.</span> <span class="nav-text">第1章 Kafka 架构深入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Kafka-工作流程及文件存储机制"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Kafka 工作流程及文件存储机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Kafka生产者"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Kafka生产者</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-分区策略"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 分区策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）-分区的原因"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">（1） 分区的原因</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）分区的原则"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">（2）分区的原则</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-数据可靠性保证"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 数据可靠性保证</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）副本数据同步策略"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">（1）副本数据同步策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）ISR"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">（2）ISR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（3）ack-应答机制"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">（3）ack 应答机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（4）故障处理细节"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">（4）故障处理细节</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-Exactly-Once-语义"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 Exactly Once 语义</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-Kafka-架构深入"><span class="nav-number">1.</span> <span class="nav-text">第1章 Kafka 架构深入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Kafka-工作流程及文件存储机制"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Kafka 工作流程及文件存储机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Kafka生产者"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Kafka生产者</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-分区策略"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 分区策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）-分区的原因"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">（1） 分区的原因</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）分区的原则"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">（2）分区的原则</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-数据可靠性保证"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 数据可靠性保证</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）副本数据同步策略"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">（1）副本数据同步策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）ISR"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">（2）ISR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（3）ack-应答机制"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">（3）ack 应答机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（4）故障处理细节"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">（4）故障处理细节</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-Exactly-Once-语义"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 Exactly Once 语义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Kafka消费者"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Kafka消费者</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-消费方式"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 消费方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-分区分配策略"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2 分区分配策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-3-offset-的维护"><span class="nav-number">1.3.3.</span> <span class="nav-text">1.3.3 offset 的维护</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-4-消费者组案例"><span class="nav-number">1.3.4.</span> <span class="nav-text">1.3.4 消费者组案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Kafka-高效读写数据"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 Kafka 高效读写数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-Zookeeper-在-Kafka-中的作用"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 Zookeeper 在 Kafka 中的作用</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -907,7 +967,7 @@ At Least Once + 幂等性 = Exactly Once</script>
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">43k</span>
+    <span title="站点总字数">48k</span>
   
 
   
@@ -916,7 +976,7 @@ At Least Once + 幂等性 = Exactly Once</script>
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">39 分钟</span>
+    <span title="站点阅读时长">44 分钟</span>
   
 </div>
 
@@ -1462,47 +1522,6 @@ At Least Once + 幂等性 = Exactly Once</script>
   
 
   
-<script>
-  $('.highlight').not('.gist .highlight').each(function(i, e) {
-    var $wrap = $('<div>').addClass('highlight-wrap');
-    $(e).after($wrap);
-    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
-      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
-        return $(e).text();
-      }).toArray().join('\n');
-      var ta = document.createElement('textarea');
-      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
-      ta.style.top = yPosition + 'px'; // Prevent page scroll
-      ta.style.position = 'absolute';
-      ta.style.opacity = '0';
-      ta.readOnly = true;
-      ta.value = code;
-      document.body.appendChild(ta);
-      const selection = document.getSelection();
-      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
-      ta.select();
-      ta.setSelectionRange(0, code.length);
-      ta.readOnly = false;
-      var result = document.execCommand('copy');
-      
-        if (result) $(this).text('复制成功');
-        else $(this).text('复制失败');
-      
-      ta.blur(); // For iOS
-      $(this).blur();
-      if (selected) {
-        selection.removeAllRanges();
-        selection.addRange(selected);
-      }
-    })).on('mouseleave', function(e) {
-      var $b = $(this).find('.copy-btn');
-      setTimeout(function() {
-        $b.text('复制');
-      }, 300);
-    }).append(e);
-  })
-</script>
-
 
   
 
