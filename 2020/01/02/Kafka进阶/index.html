@@ -155,7 +155,7 @@
 <meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/传统文件拷贝.png">
 <meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/kafka零拷贝.png">
 <meta property="og:image" content="https://sparksflyme.github.io/2020/01/02/Kafka进阶/Leader选举流程.png">
-<meta property="og:updated_time" content="2020-03-30T15:36:50.940Z">
+<meta property="og:updated_time" content="2020-04-19T08:16:29.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka进阶">
 <meta name="twitter:description" content="第1章 Kafka 架构深入1.1 Kafka 工作流程及文件存储机制 Kafka 工作流程   &amp;emsp;&amp;emsp;图中的0、1、2、3等就是偏移量”offset“，每个分区都有自己的从头开始的偏移量，是每个分区独立的，所以kafka中不能保证消息的全局有序性，只能保证区内有序。 &amp;emsp;&amp;emsp;Kafka 中消息是以 topic 进行分类的，生产者生产消息，消费者消费消息，都是面向">
@@ -479,7 +479,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-30 23:36:50" itemprop="dateModified" datetime="2020-03-30T23:36:50+08:00">2020-03-30</time>
+                <time title="修改时间：2020-04-19 16:16:29" itemprop="dateModified" datetime="2020-04-19T16:16:29+08:00">2020-04-19</time>
               </span>
             
           
@@ -673,15 +673,15 @@ At Least Once + 幂等性 = Exactly Once</script><p>&emsp;&emsp;要启用幂等�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exclude.internal.topics=false</span><br><span class="line">（没有就新增）</span><br></pre></td></tr></table></figure>
 <p>2）读取 offset </p>
 <p>​    0.11.0.0 之前版本: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --topic __consumer_offsets -zookeeper server1:2181 --formatter &quot;kafka.coordinator.GroupMetadataManager\$OffsetsMessageFormatter&quot; --consumer.config config/consumer.properties --from-beginning</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --topic __consumer_offsets -zookeeper server1:2181/kafka --formatter &quot;kafka.coordinator.GroupMetadataManager\$OffsetsMessageFormatter&quot; --consumer.config config/consumer.properties --from-beginning</span><br></pre></td></tr></table></figure>
 <p>​    0.11.0.0 之后版本(含): </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --topic __consumer_offsets -zookeeper server1:2181 --formatter &quot;kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageForm atter&quot; --consumer.config config/consumer.properties --frombeginning</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --topic __consumer_offsets -zookeeper server1:2181/kafka --formatter &quot;kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageForm atter&quot; --consumer.config config/consumer.properties --frombeginning</span><br></pre></td></tr></table></figure>
 <h4 id="1-3-4-消费者组案例"><a href="#1-3-4-消费者组案例" class="headerlink" title="1.3.4 消费者组案例"></a>1.3.4 消费者组案例</h4><p>1）需求：测试同一个消费者组中的消费者，同一时刻只能有一个消费者消费。 </p>
 <p>2）案例实操 </p>
-<p>（1）在 hadoop102、hadoop103 上修改/opt/software/kafka/config/consumer.properties 配置文件中的 group.id 属性为任意组名。 </p>
+<p>（1）在 server1、server2 上修改/opt/software/kafka/config/consumer.properties 配置文件中的 group.id 属性为任意组名。 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 config]$ vi consumer.properties </span><br><span class="line">group.id=kaizhang</span><br></pre></td></tr></table></figure>
 <p>（2）在 server1、server2上分别启动消费者 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-console-consumer.sh --zookeeper server1:2181 --topic first --consumer.config config/consumer.properties</span><br><span class="line">[kaizhang@server2 kafka]$ bin/kafka-console-consumer.sh --bootstrap-server server1:9092 --topic first --consumer.config config/consumer.properties</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server1 kafka]$ bin/kafka-console-consumer.sh --zookeeper server1:2181/kafka --topic first --consumer.config config/consumer.properties</span><br><span class="line">[kaizhang@server2 kafka]$ bin/kafka-console-consumer.sh --bootstrap-server server1:9092 --topic first --consumer.config config/consumer.properties</span><br></pre></td></tr></table></figure>
 <p>（3）在 server3上启动生产者 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[kaizhang@server3 kafka]$ bin/kafka-console-producer.sh --broker-list hadoop102:9092 --topic first </span><br><span class="line">&gt;hello world</span><br></pre></td></tr></table></figure>
 <p>（4）查看 server1和 server2的接收者。 </p>
@@ -819,7 +819,7 @@ At Least Once + 幂等性 = Exactly Once</script><p>&emsp;&emsp;要启用幂等�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -967,7 +967,7 @@ At Least Once + 幂等性 = Exactly Once</script><p>&emsp;&emsp;要启用幂等�
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">48k</span>
+    <span title="站点总字数">49k</span>
   
 
   
@@ -976,7 +976,7 @@ At Least Once + 幂等性 = Exactly Once</script><p>&emsp;&emsp;要启用幂等�
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">44 分钟</span>
+    <span title="站点阅读时长">45 分钟</span>
   
 </div>
 
