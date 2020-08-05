@@ -147,8 +147,7 @@
 <meta property="og:description" content="简介在计算机科学中，比较和交换（Conmpare And Swap）是用于实现多线程同步的原子指令。 它将内存位置的内容与给定值进行比较，只有在相同的情况下，将该内存位置的内容修改为新的给定值。 这是作为单个原子操作完成的。 原子性保证新值基于最新信息计算; 如果该值在同一时间被另一个线程更新，则写入将失败。 操作结果必须说明是否进行替换; 这可以通过一个简单的布尔响应（这个变体通常称为比较和设置">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://sparksflyme.github.io/2020/08/06/JAVA-中的-CAS/pic1.png">
-<meta property="og:image" content="https://sparksflyme.github.io/2020/08/06/JAVA-中的-CAS/pic1.png">
-<meta property="og:updated_time" content="2020-08-05T17:30:00.134Z">
+<meta property="og:updated_time" content="2020-08-05T17:35:03.689Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA 中的 CAS">
 <meta name="twitter:description" content="简介在计算机科学中，比较和交换（Conmpare And Swap）是用于实现多线程同步的原子指令。 它将内存位置的内容与给定值进行比较，只有在相同的情况下，将该内存位置的内容修改为新的给定值。 这是作为单个原子操作完成的。 原子性保证新值基于最新信息计算; 如果该值在同一时间被另一个线程更新，则写入将失败。 操作结果必须说明是否进行替换; 这可以通过一个简单的布尔响应（这个变体通常称为比较和设置">
@@ -457,7 +456,7 @@
                 
               
 
-              <time title="创建时间：2020-08-06 01:16:00 / 修改时间：01:30:00" itemprop="dateCreated datePublished" datetime="2020-08-06T01:16:00+08:00">2020-08-06</time>
+              <time title="创建时间：2020-08-06 01:16:00 / 修改时间：01:35:03" itemprop="dateCreated datePublished" datetime="2020-08-06T01:16:00+08:00">2020-08-06</time>
             </span>
           
 
@@ -524,7 +523,6 @@
 <blockquote>
 <p>比较 A 与 V 是否相等。（比较）<br>如果比较相等，将 B 写入 V。（交换）<br>返回操作是否成功。<br>当多个线程同时对某个资源进行CAS操作，只能有一个线程操作成功，但是并不会阻塞其他线程,其他线程只会收到操作失败的信号。可见 CAS 其实是一个乐观锁。</p>
 </blockquote>
-<img src="/2020/08/06/JAVA-中的-CAS/pic1.png" title="示例">
 <img src="/2020/08/06/JAVA-中的-CAS/pic1.png" title="示例">
 <p>如上图中，主存中保存V值，线程中要使用V值要先从主存中读取V值到线程的工作内存A中，然后计算后变成B值，最后再把B值写回到内存V值中。多个线程共用V值都是如此操作。CAS的核心是在将B值写入到V之前要比较A值和V值是否相同，如果不相同证明此时V值已经被其他线程改变，重新将V值赋给A，并重新计算得到B，如果相同，则将B值赋给V。</p>
 <p>如果不使用CAS机制，看看存在什么问题，假如V=1，现在Thread1要对V进行加1，Thread2也要对V进行加1，首先Thread1读取V=1到自己工作内存A中此时A=1，假设Thread2此时也读取V=1到自己的工作内存A中，分别进行加1操作后，两个线程中B的值都为2，此时写回到V中时发现V的值为2，但是两个线程分别对V进行加处理结果却只加了1有问题。</p>
