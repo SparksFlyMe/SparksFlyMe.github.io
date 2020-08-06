@@ -139,13 +139,14 @@
 
 
   <meta name="description" content="CountDownLatch和CyclicBarrier的功能看起来很相似，不易区分，有一种谜之的神秘。本文将通过通俗的例子并结合代码讲解两者的使用方法和区别。 CountDownLatch和CyclicBarrier都是java.util.concurrent（juc）包下面的多线程工具类。 从字面上理解，CountDown表示减法计数，Latch表示门闩的意思，计数为0的时候就可以打开门闩了。">
+<meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java中CountDownLatch和CyclicBarrier的理解和区别">
 <meta property="og:url" content="https://SparksFlyMe.github.io/2020/08/06/Java中CountDownLatch和CyclicBarrier的理解和区别/index.html">
 <meta property="og:site_name" content="SparksFlyMe&#39;Blog">
 <meta property="og:description" content="CountDownLatch和CyclicBarrier的功能看起来很相似，不易区分，有一种谜之的神秘。本文将通过通俗的例子并结合代码讲解两者的使用方法和区别。 CountDownLatch和CyclicBarrier都是java.util.concurrent（juc）包下面的多线程工具类。 从字面上理解，CountDown表示减法计数，Latch表示门闩的意思，计数为0的时候就可以打开门闩了。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-08-06T13:38:24.230Z">
+<meta property="og:updated_time" content="2020-08-06T13:44:31.951Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java中CountDownLatch和CyclicBarrier的理解和区别">
 <meta name="twitter:description" content="CountDownLatch和CyclicBarrier的功能看起来很相似，不易区分，有一种谜之的神秘。本文将通过通俗的例子并结合代码讲解两者的使用方法和区别。 CountDownLatch和CyclicBarrier都是java.util.concurrent（juc）包下面的多线程工具类。 从字面上理解，CountDown表示减法计数，Latch表示门闩的意思，计数为0的时候就可以打开门闩了。">
@@ -453,7 +454,7 @@
                 
               
 
-              <time title="创建时间：2020-08-06 21:36:46 / 修改时间：21:38:24" itemprop="dateCreated datePublished" datetime="2020-08-06T21:36:46+08:00">2020-08-06</time>
+              <time title="创建时间：2020-08-06 21:36:00 / 修改时间：21:44:31" itemprop="dateCreated datePublished" datetime="2020-08-06T21:36:00+08:00">2020-08-06</time>
             </span>
           
 
@@ -484,7 +485,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">561</span>
+              <span title="本文字数">906</span>
             </span>
           
 
@@ -519,7 +520,13 @@
 <p>CountDownLatch和CyclicBarrier都是java.util.concurrent（juc）包下面的多线程工具类。</p>
 <p>从字面上理解，CountDown表示减法计数，Latch表示门闩的意思，计数为0的时候就可以打开门闩了。Cyclic Barrier表示循环的障碍物。两个类都含有这一个意思：对应的线程都完成工作之后再进行下一步动作，也就是大家都准备好之后再进行下一步。然而两者最大的区别是，进行下一步动作的动作<font color="red">实施者</font>是不一样的。这里的“动作实施者”有两种，一种是主线程，另一种是执行任务的其他线程，后面叫这种线程为“其他线程”，区分于主线程。对于CountDownLatch，当计数为0的时候，下一步的动作实施者是main函数；对于CyclicBarrier，下一步动作实施者是“其他线程”。</p>
 <p>下面举例说明：</p>
-<p>对于CountDownLatch，其他线程为游戏玩家，比如英雄联盟，主线程为控制游戏开始的线程。在所有的玩家都准备好之前，主线程是处于等待状态的，也就是游戏不能开始。当所有的玩家准备好之后，下一步的动作实施者为主线程，即开始游戏。</p>
+<ul>
+<li>对于CountDownLatch，其他线程为游戏玩家，比如英雄联盟，主线程为控制游戏开始的线程。在所有的玩家都准备好之前，主线程是处于等待状态的，也就是游戏不能开始。当所有的玩家准备好之后，下一步的动作实施者为主线程，即开始游戏。</li>
+</ul>
+<ul>
+<li>对于CyclicBarrier，假设有一家公司要全体员工进行团建活动，活动内容为翻越三个障碍物，每一个人翻越障碍物所用的时间是不一样的。但是公司要求所有人在翻越当前障碍物之后再开始翻越下一个障碍物，也就是所有人翻越第一个障碍物之后，才开始翻越第二个，以此类推。类比地，每一个员工都是一个“其他线程”。当所有人都翻越的所有的障碍物之后，程序才结束。而主线程可能早就结束了，这里我们不用管主线程。</li>
+</ul>
+<p>总结：CountDownLatch和CyclicBarrier都有让多个线程等待同步然后再开始下一步动作的意思，但是CountDownLatch的下一步的动作实施者是主线程，具有不可重复性；而CyclicBarrier的下一步动作实施者还是“其他线程”本身，具有往复多次实施动作的特点。</p>
 
       
     </div>
@@ -540,6 +547,15 @@
     
 
     <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/多线程/" rel="tag"><i class="fa fa-tag"></i> 多线程</a>
+          
+        </div>
       
 
       
