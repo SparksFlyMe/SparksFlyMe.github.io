@@ -146,7 +146,7 @@
 <meta property="og:site_name" content="SparksFlyMe&#39;Blog">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;今天在生产环境中遇到一个问题，在用http工具类post请求调用别人接口时，没有收到响应信息，我们代码中是做了判断的，如果响应信息为空，则发起查询，奇怪的是我们并没有发起查询。查看了业务代码也是没有问题的，在http工具类中也是捕获了异常的，但是日志中没有任何响应相关的信息，感觉是请求发出去后，线程就阻塞了。经过排查发现，是http工具类的问题。项目中用的是HttpURLC">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-08-11T14:02:41.043Z">
+<meta property="og:updated_time" content="2020-08-11T14:07:40.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ConnectTimeout和ReadTimeout所代表的意义">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;今天在生产环境中遇到一个问题，在用http工具类post请求调用别人接口时，没有收到响应信息，我们代码中是做了判断的，如果响应信息为空，则发起查询，奇怪的是我们并没有发起查询。查看了业务代码也是没有问题的，在http工具类中也是捕获了异常的，但是日志中没有任何响应相关的信息，感觉是请求发出去后，线程就阻塞了。经过排查发现，是http工具类的问题。项目中用的是HttpURLC">
@@ -454,7 +454,7 @@
                 
               
 
-              <time title="创建时间：2020-08-11 21:20:00 / 修改时间：22:02:41" itemprop="dateCreated datePublished" datetime="2020-08-11T21:20:00+08:00">2020-08-11</time>
+              <time title="创建时间：2020-08-11 21:20:00 / 修改时间：22:07:40" itemprop="dateCreated datePublished" datetime="2020-08-11T21:20:00+08:00">2020-08-11</time>
             </span>
           
 
@@ -516,7 +516,7 @@
       
 
       
-        <p>&emsp;&emsp;今天在生产环境中遇到一个问题，在用http工具类post请求调用别人接口时，没有收到响应信息，我们代码中是做了判断的，如果响应信息为空，则发起查询，奇怪的是我们并没有发起查询。查看了业务代码也是没有问题的，在http工具类中也是捕获了异常的，但是日志中没有任何响应相关的信息，感觉是请求发出去后，线程就阻塞了。经过排查发现，是http工具类的问题。项目中用的是<strong>HttpURLConnection</strong>，其中只设置了ConnectTimeout，没有设置ReadTimeout，导致没有请求没有响应后没有执行后续查询相关操作。这里就记录一下ConnectTimeout、ReadTimeout所代表的意义。</p>
+        <p>&emsp;&emsp;今天在生产环境中遇到一个问题，在用http工具类post请求调用别人接口时，没有收到响应信息，我们代码中是做了判断的，如果响应信息为空，则发起查询，奇怪的是我们并没有发起查询。查看了业务代码也是没有问题的，在http工具类中也是捕获了异常的，但是日志中没有任何响应相关的信息，感觉是请求发出去后，线程就阻塞了。经过排查发现，是http工具类的问题。项目中用的是<strong>HttpURLConnection</strong>，其中只设置了ConnectTimeout，没有设置ReadTimeout，导致请求没收到响应后没有执行后续查询相关操作。这里就记录一下ConnectTimeout、ReadTimeout所代表的意义。</p>
 <ul>
 <li><h5 id="ConnectTimeout"><a href="#ConnectTimeout" class="headerlink" title="ConnectTimeout"></a>ConnectTimeout</h5><blockquote>
 <p>指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的时间。<br>在java中，网络状况正常的情况下，例如使用HttpClient或者HttpURLConnetion连接时设置参数connectTimeout=5000即5秒，如果连接用时超过5秒就是抛出java.net.SocketException: connetct time out的异常</p>
