@@ -151,7 +151,7 @@
 <meta property="og:description" content="简介在计算机科学中，比较和交换（Conmpare And Swap）是用于实现多线程同步的原子指令。 它将内存位置的内容与给定值进行比较，只有在相同的情况下，将该内存位置的内容修改为新的给定值。 这是作为单个原子操作完成的。 原子性保证新值基于最新信息计算; 如果该值在同一时间被另一个线程更新，则写入将失败。 操作结果必须说明是否进行替换; 这可以通过一个简单的布尔响应（这个变体通常称为比较和设置">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://sparksflyme.github.io/2020/08/06/JAVA-中的-CAS/pic1.png">
-<meta property="og:updated_time" content="2020-08-05T17:36:06.873Z">
+<meta property="og:updated_time" content="2020-09-03T16:18:19.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA 中的 CAS">
 <meta name="twitter:description" content="简介在计算机科学中，比较和交换（Conmpare And Swap）是用于实现多线程同步的原子指令。 它将内存位置的内容与给定值进行比较，只有在相同的情况下，将该内存位置的内容修改为新的给定值。 这是作为单个原子操作完成的。 原子性保证新值基于最新信息计算; 如果该值在同一时间被另一个线程更新，则写入将失败。 操作结果必须说明是否进行替换; 这可以通过一个简单的布尔响应（这个变体通常称为比较和设置">
@@ -460,13 +460,23 @@
                 
               
 
-              <time title="创建时间：2020-08-06 01:16:00 / 修改时间：01:36:06" itemprop="dateCreated datePublished" datetime="2020-08-06T01:16:00+08:00">2020-08-06</time>
+              <time title="创建时间：2020-08-06 01:16:00" itemprop="dateCreated datePublished" datetime="2020-08-06T01:16:00+08:00">2020-08-06</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-09-04 00:18:19" itemprop="dateModified" datetime="2020-09-04T00:18:19+08:00">2020-09-04</time>
+              </span>
             
           
 
@@ -523,7 +533,7 @@
 
       
         <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在计算机科学中，比较和交换（Conmpare And Swap）是用于实现多线程同步的原子指令。 它将内存位置的内容与给定值进行比较，只有在相同的情况下，将该内存位置的内容修改为新的给定值。 这是作为单个原子操作完成的。 原子性保证新值基于最新信息计算; 如果该值在同一时间被另一个线程更新，则写入将失败。 操作结果必须说明是否进行替换; 这可以通过一个简单的布尔响应（这个变体通常称为比较和设置），或通过返回从内存位置读取的值来完成。</p>
-<h4 id="一个-CAS-涉及到以下操作："><a href="#一个-CAS-涉及到以下操作：" class="headerlink" title="一个 CAS 涉及到以下操作："></a><strong>一个 CAS 涉及到以下操作：</strong></h4><p>我们假设内存中的原数据V，旧的预期值A，需要修改的新值B。</p>
+<h3 id="一个-CAS-涉及到以下操作："><a href="#一个-CAS-涉及到以下操作：" class="headerlink" title="一个 CAS 涉及到以下操作："></a>一个 CAS 涉及到以下操作：</h3><p>我们假设内存中的原数据V，旧的预期值A，需要修改的新值B。</p>
 <blockquote>
 <p>比较 A 与 V 是否相等。（比较）<br>如果比较相等，将 B 写入 V。（交换）<br>返回操作是否成功。<br>当多个线程同时对某个资源进行CAS操作，只能有一个线程操作成功，但是并不会阻塞其他线程,其他线程只会收到操作失败的信号。可见 CAS 其实是一个乐观锁。</p>
 </blockquote>
@@ -797,7 +807,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个-CAS-涉及到以下操作："><span class="nav-number">1.1.</span> <span class="nav-text">一个 CAS 涉及到以下操作：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ABA-问题"><span class="nav-number">2.</span> <span class="nav-text">ABA 问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAS-的应用"><span class="nav-number">3.</span> <span class="nav-text">CAS 的应用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个-CAS-涉及到以下操作："><span class="nav-number">2.</span> <span class="nav-text">一个 CAS 涉及到以下操作：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ABA-问题"><span class="nav-number">3.</span> <span class="nav-text">ABA 问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAS-的应用"><span class="nav-number">4.</span> <span class="nav-text">CAS 的应用</span></a></li></ol></div>
             
 
           </div>
