@@ -142,17 +142,20 @@
 
 
 
-  <meta name="description" content="我不知道将来如何，只想做好当前的自己！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="https://SparksFlyMe.github.io/tags/index.html">
+  <meta name="description" content="单例模式介绍单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。 这种模式涉及到一个单一的类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。 注意：  1、单例类只能有一个实例。 2、单例类必须自己创建自己的唯一实例。">
+<meta name="keywords" content="单例模式,volatile">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单例模式之双重锁模式：为什么要加双重锁？为什么要加volatile？">
+<meta property="og:url" content="https://SparksFlyMe.github.io/2020/09/16/单例模式之双重锁模式：为什么要加双重锁？为什么要加volatile？/index.html">
 <meta property="og:site_name" content="SparksFlyMe&#39;Blog">
-<meta property="og:description" content="我不知道将来如何，只想做好当前的自己！">
+<meta property="og:description" content="单例模式介绍单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。 这种模式涉及到一个单一的类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。 注意：  1、单例类只能有一个实例。 2、单例类必须自己创建自己的唯一实例。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-13T01:01:16.848Z">
+<meta property="og:image" content="https://sparksflyme.github.io/2020/09/16/单例模式之双重锁模式：为什么要加双重锁？为什么要加volatile？/java内存模型.jpg">
+<meta property="og:updated_time" content="2020-09-15T16:38:36.218Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签">
-<meta name="twitter:description" content="我不知道将来如何，只想做好当前的自己！">
+<meta name="twitter:title" content="单例模式之双重锁模式：为什么要加双重锁？为什么要加volatile？">
+<meta name="twitter:description" content="单例模式介绍单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。 这种模式涉及到一个单一的类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。 注意：  1、单例类只能有一个实例。 2、单例类必须自己创建自己的唯一实例。">
+<meta name="twitter:image" content="https://sparksflyme.github.io/2020/09/16/单例模式之双重锁模式：为什么要加双重锁？为什么要加volatile？/java内存模型.jpg">
 
 
 
@@ -160,7 +163,7 @@
 
   
   
-  <link rel="canonical" href="https://SparksFlyMe.github.io/tags/">
+  <link rel="canonical" href="https://SparksFlyMe.github.io/2020/09/16/单例模式之双重锁模式：为什么要加双重锁？为什么要加volatile？/">
 
 
 
@@ -170,7 +173,7 @@
   };
 </script>
 
-  <title>标签 | SparksFlyMe'Blog</title>
+  <title>单例模式之双重锁模式：为什么要加双重锁？为什么要加volatile？ | SparksFlyMe'Blog</title>
   
 
 
@@ -292,7 +295,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -394,132 +397,263 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://SparksFlyMe.github.io/2020/09/16/单例模式之双重锁模式：为什么要加双重锁？为什么要加volatile？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kaizhang">
+      <meta itemprop="description" content="我不知道将来如何，只想做好当前的自己！">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SparksFlyMe'Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">标签
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
+          <h1 class="post-title" itemprop="name headline">单例模式之双重锁模式：为什么要加双重锁？为什么要加volatile？
+
               
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-              目前共计 12 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              
-                <a href="/tags/Hexo/" style="font-size: 12px; color: #ccc">Hexo</a> <a href="/tags/JAVA/" style="font-size: 12px; color: #ccc">JAVA</a> <a href="/tags/Kafka/" style="font-size: 30px; color: #111">Kafka</a> <a href="/tags/Mybatis/" style="font-size: 12px; color: #ccc">Mybatis</a> <a href="/tags/Spring/" style="font-size: 21px; color: #6f6f6f">Spring</a> <a href="/tags/Zookeeper/" style="font-size: 21px; color: #6f6f6f">Zookeeper</a> <a href="/tags/java/" style="font-size: 12px; color: #ccc">java</a> <a href="/tags/spring/" style="font-size: 12px; color: #ccc">spring</a> <a href="/tags/volatile/" style="font-size: 12px; color: #ccc">volatile</a> <a href="/tags/单例模式/" style="font-size: 12px; color: #ccc">单例模式</a> <a href="/tags/多线程/" style="font-size: 30px; color: #111">多线程</a> <a href="/tags/网络/" style="font-size: 12px; color: #ccc">网络</a>
-              
-            </div>
-          </div>
+            
+          </h1>
         
-      </div>
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-09-16 00:16:00 / 修改时间：00:38:36" itemprop="dateCreated datePublished" datetime="2020-09-16T00:16:00+08:00">2020-09-16</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">3.1k</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">3 分钟</span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。</p>
+<p>这种模式涉及到一个单一的类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>1、单例类只能有一个实例。</li>
+<li>2、单例类必须自己创建自己的唯一实例。</li>
+<li>3、单例类必须给所有其他对象提供这一实例。</li>
+</ul>
+<p><strong>优点：</strong></p>
+<ul>
+<li>1、在内存里只有一个实例，减少了内存的开销，尤其是频繁的创建和销毁实例（比如管理学院首页页面缓存）。</li>
+<li>2、避免对资源的多重占用（比如写文件操作）。</li>
+</ul>
+<p><strong>缺点：</strong>没有接口，不能继承，与单一职责原则冲突，一个类应该只关心内部逻辑，而不关心外面怎么样来实例化。</p>
+<p><strong>使用场景：</strong></p>
+<ul>
+<li>1、要求生产唯一序列号。</li>
+<li>2、WEB 中的计数器，不用每次刷新都在数据库里加一次，用单例先缓存起来。</li>
+<li>3、创建的一个对象需要消耗的资源过多，比如 I/O 与数据库的连接等。</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 定义一个私有变量来存放单例，私有的目的是指外部无法直接获取这个变量，而要使用提供的私有方法来获取</span><br><span class="line">     * volatile是用来防止指令重排</span><br><span class="line">     */</span><br><span class="line">    private volatile static Singleton instance = null;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 定义私有构造方法，表示只在类内部使用，亦指单例的实例只能在单例类内部创建，外部不能new</span><br><span class="line">     */</span><br><span class="line">    private Singleton() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static Singleton getInstance() &#123;</span><br><span class="line">    	// 第一次判空</span><br><span class="line">        if (null == instance) &#123;</span><br><span class="line">            synchronized (Singleton.class) &#123;</span><br><span class="line">            	// 第二次判空</span><br><span class="line">                if (null == instance) &#123;</span><br><span class="line">                    instance = new Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1.为什么要进行第一次判空</p>
+<p>我们知道单例模式只有第一次执行getInstance()方法的时候才会走synchronized 中的代码，后面再次访问的时候直接返回single 对象。如果说我们没有第一次验校，每一个线程都要走synchronized 中的代码，而每一次线程都要去拿到同步锁才能执行。在多线程的情况下每一个线程要拿到single 对象都要排队等待同步锁释放。因此第一次验校作用就是为了提高程序的效率。</p>
+<p>2.为什么要进行第二次判空</p>
+<p>举个例子：假如现在没有第二次验校，线程A执行到第一次验校那里，它判断到single ==null。此时它的资源被线程B抢占了，B执行程序，进入同步代码块创建对象，然后释放同步锁，此时线程A又拿到了资源也拿到了同步锁，然后执行同步代码块，因为之前线程A它判断到single ==null，因此它会直接创建新的对象。所以就违反了我们设计的最终目的。</p>
+<p>3.变量为什么要加volatile关键字</p>
+<p>在上面例子中volatile保证代码指令不会被重排序，首先我们得先了解什么是volatile关键字与及它的特性。</p>
+<h2 id="volatile关键字的特性"><a href="#volatile关键字的特性" class="headerlink" title="volatile关键字的特性"></a>volatile关键字的特性</h2><p>volatile具有可见性、有序性，不具备原子性。</p>
+<p>注意，volatile不具备原子性，这是volatile与java中的synchronized、java.util.concurrent.locks.Lock最大的功能差异，这一点在面试中也是非常容易问到的点。</p>
+<p>原子性：不可打断的操作，要么成功要么失败。例如基本数据类型的读写操作都是属于原子性，int a = 10这一过程就是原子性（即可以看成当一个线程执行int a = 10这句代码时其他线程是处于等待获取cpu资源的状态，因为线程并发是通过cpu调度交替执行，并不是真正的并行执行），但是像a++这样的运算操作就是非原子性，因为a++虚拟机要运行三个指令：读取a，a+1，a赋值，这个过程是允许打断的。</p>
+<p>volatile具有可见性是指当一个线程对变量进行原子操作的时候，另外的线程能立即获取到最新的数据。</p>
+<p>java如何实现可见性需要了解Java的内存模型：</p>
+<img src="/2020/09/16/单例模式之双重锁模式：为什么要加双重锁？为什么要加volatile？/java内存模型.jpg" title="java内存模型">
+<p>Java内存模型(即Java Memory Model，简称JMM)本身是一种抽象的概念，并不真实存在。它描述了不同线程访问共享变量的规则。</p>
+<p>我们程序所有的共享变量都是放在主内存中，而线程会从主内存拷贝它需要的共享变量到自己的工作内存。</p>
+<p>线程之间变量的传递则需要靠主内存。</p>
+<p>Java内存模型规定对共享变量的操作只能在自己工作内存进行，即我读一个共享变量时需要先从工作内存找。写的时候也需要修改工作内存的变量后再push到主内存。</p>
+<h2 id="在多线程并发的情况下会发生什么问题？"><a href="#在多线程并发的情况下会发生什么问题？" class="headerlink" title="在多线程并发的情况下会发生什么问题？"></a>在多线程并发的情况下会发生什么问题？</h2><p>假如主内存中有个共享变量 int a = 10,线程A和线程B的工作内存都有这个变量的副本。假如线程A在自己工作内存中修改了a的值，int a = 20，此时线程A还未来得及push到主内存中线程B就已经读取了a的值,线程B读取到的值是10，因此就造成了数据的混乱。</p>
+<p>而java的volatile保证了共享变量的可见性：volatile修饰的变量当线程在工作内存修改后会立马push到主内存中，同时会把工作内存的变量设置为禁止读取，因此访问这个变量的时候不能从自己的工作内存访问，必须要去主内存中取。</p>
+<p>还是举上面的例子：变量a被volatile修饰 volatile int a = 10，线程A修改了a的值立马push到主存中，线程B访问的时候到主存访问就可以得到最新的值。</p>
+<p>其次volatile还可以禁止虚拟机对指令进行重排序。<font color="red">指令重排作用是虚拟机在不影响单线程程序执行结果的前提下对指令重新排序，提高程序运行效率</font>。但是重排序在多线程并发的情况下也是容易出现问题的。</p>
+<p>在上诉单例模式中volatile保证了虚拟机执行字节码的时候指令不会重排序。</p>
+<p>single = new Single() 在我们看来就是一句话操作而已，但在虚拟机看来它一共分为了几个指令操作：</p>
+<ol>
+<li>为对象分配内存空间</li>
+<li>初始化对象</li>
+<li>引用指向对象的内存空间地址</li>
+</ol>
+<p>虚拟机执行的时候不一定是按顺序123的执行，也有可能是132。这是虚拟机的重排序引起的，单线程情况下是没有什么bug的，最终都会创建出对象，只是先后顺序不同。</p>
+<p>但是在上面例子中会出现这么一种情况：</p>
+<p>假如线程A执行 single = new Single()虚拟机是按132排序执行，当执行到3的时候single 引用已经不为空。此时若线程B执行到第一次验校处（第一次验校不在同步代码中，因此所有线程随时都可以访问），它判断 single ==null 得到false,直接返回single对象。但是此时single对象还没初始化完成，因此很有可能就会发生bug。</p>
+<p><a href="https://baijiahao.baidu.com/s?id=1652612352362556015&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">查看原文</a></p>
+
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/单例模式/" rel="tag"><i class="fa fa-tag"></i> 单例模式</a>
+          
+            <a href="/tags/volatile/" rel="tag"><i class="fa fa-tag"></i> volatile</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/13/TCP三次握手和四次挥手过程/" rel="next" title="TCP三次握手和四次挥手过程">
+                <i class="fa fa-chevron-left"></i> TCP三次握手和四次挥手过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
@@ -548,8 +682,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -689,6 +832,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单例模式"><span class="nav-number">1.</span> <span class="nav-text">单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">1.2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile关键字的特性"><span class="nav-number">1.3.</span> <span class="nav-text">volatile关键字的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在多线程并发的情况下会发生什么问题？"><span class="nav-number">1.4.</span> <span class="nav-text">在多线程并发的情况下会发生什么问题？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
