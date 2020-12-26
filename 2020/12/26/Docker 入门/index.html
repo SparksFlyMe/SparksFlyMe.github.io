@@ -142,13 +142,13 @@
 
 
 
-  <meta name="description" content="Docker 入门笔记整理来源 B站UP主狂神说Javahttps://space.bilibili.com/95256449/ Docker概述Docker为什么出现？ 一款产品： 开发–上线 两套环境！应用环境，应用配置！ 开发 — 运维。 问题：我在我的电脑上可以允许！版本更新，导致服务不可用！对于运维来说考验十分大？ 环境配置是十分的麻烦，每一个及其都要部署环境(集群Redis、ES、H">
+  <meta name="description" content="Docker 入门笔记整理来源 B站UP主狂神说Javahttps://space.bilibili.com/95256449/ Docker概述Docker为什么出现？ 一款产品： 开发–上线 两套环境！应用环境，应用配置！ 开发 — 运维。 问题：我在我的电脑上可以允许！版本更新，导致服务不可用！对于运维来说考验十分大？ 环境配置是十分的麻烦，每一个及其都要部署环境(集群Redis、ES、Ha">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker 入门">
 <meta property="og:url" content="https://SparksFlyMe.github.io/2020/12/26/Docker 入门/index.html">
 <meta property="og:site_name" content="SparksFlyMe&#39;Blog">
-<meta property="og:description" content="Docker 入门笔记整理来源 B站UP主狂神说Javahttps://space.bilibili.com/95256449/ Docker概述Docker为什么出现？ 一款产品： 开发–上线 两套环境！应用环境，应用配置！ 开发 — 运维。 问题：我在我的电脑上可以允许！版本更新，导致服务不可用！对于运维来说考验十分大？ 环境配置是十分的麻烦，每一个及其都要部署环境(集群Redis、ES、H">
+<meta property="og:description" content="Docker 入门笔记整理来源 B站UP主狂神说Javahttps://space.bilibili.com/95256449/ Docker概述Docker为什么出现？ 一款产品： 开发–上线 两套环境！应用环境，应用配置！ 开发 — 运维。 问题：我在我的电脑上可以允许！版本更新，导致服务不可用！对于运维来说考验十分大？ 环境配置是十分的麻烦，每一个及其都要部署环境(集群Redis、ES、Ha">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200522080257159.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU5MTk4MA==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNTE1Mzg1Mjk1NC5wbmc?x-oss-process=image/format,png">
@@ -160,9 +160,6 @@
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNTEwNDExNzMyOS5wbmc?x-oss-process=image/format,png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200522083541799.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU5MTk4MA==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200522092043553.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200522093429405.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU5MTk4MA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200522093522617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU5MTk4MA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200522093522598.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU5MTk4MA==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNTEzMjkxMzg4OC5wbmc?x-oss-process=image/format,png">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNTEzMzQzMzM3Mi5wbmc?x-oss-process=image/format,png">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNTEzMzkwNzEzNC5wbmc?x-oss-process=image/format,png">
@@ -182,10 +179,10 @@
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNTE2NTE0ODAwMi5wbmc?x-oss-process=image/format,png">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNTE2NTU1NzgwNy5wbmc?x-oss-process=image/format,png">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNTE2MTUwNTg5Ny5wbmc?x-oss-process=image/format,png">
-<meta property="og:updated_time" content="2020-12-26T02:26:44.414Z">
+<meta property="og:updated_time" content="2020-12-26T02:58:25.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 入门">
-<meta name="twitter:description" content="Docker 入门笔记整理来源 B站UP主狂神说Javahttps://space.bilibili.com/95256449/ Docker概述Docker为什么出现？ 一款产品： 开发–上线 两套环境！应用环境，应用配置！ 开发 — 运维。 问题：我在我的电脑上可以允许！版本更新，导致服务不可用！对于运维来说考验十分大？ 环境配置是十分的麻烦，每一个及其都要部署环境(集群Redis、ES、H">
+<meta name="twitter:description" content="Docker 入门笔记整理来源 B站UP主狂神说Javahttps://space.bilibili.com/95256449/ Docker概述Docker为什么出现？ 一款产品： 开发–上线 两套环境！应用环境，应用配置！ 开发 — 运维。 问题：我在我的电脑上可以允许！版本更新，导致服务不可用！对于运维来说考验十分大？ 环境配置是十分的麻烦，每一个及其都要部署环境(集群Redis、ES、Ha">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200522080257159.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU5MTk4MA==,size_16,color_FFFFFF,t_70#pic_center">
 
 
@@ -491,7 +488,7 @@
                 
               
 
-              <time title="创建时间：2020-12-26 10:25:00 / 修改时间：10:26:44" itemprop="dateCreated datePublished" datetime="2020-12-26T10:25:00+08:00">2020-12-26</time>
+              <time title="创建时间：2020-12-26 10:25:00 / 修改时间：10:58:25" itemprop="dateCreated datePublished" datetime="2020-12-26T10:25:00+08:00">2020-12-26</time>
             </span>
           
 
@@ -553,8 +550,7 @@
       
 
       
-        <hr>
-<h2 id="Docker-入门"><a href="#Docker-入门" class="headerlink" title="Docker 入门"></a>Docker 入门</h2><p>笔记整理来源 B站UP主<strong>狂神说Java</strong><a href="https://space.bilibili.com/95256449/" target="_blank" rel="noopener">https://space.bilibili.com/95256449/</a></p>
+        <h2 id="Docker-入门"><a href="#Docker-入门" class="headerlink" title="Docker 入门"></a>Docker 入门</h2><p>笔记整理来源 B站UP主<strong>狂神说Java</strong><a href="https://space.bilibili.com/95256449/" target="_blank" rel="noopener">https://space.bilibili.com/95256449/</a></p>
 <h3 id="Docker概述"><a href="#Docker概述" class="headerlink" title="Docker概述"></a>Docker概述</h3><p><strong>Docker为什么出现？</strong></p>
 <p>一款产品： 开发–上线 两套环境！应用环境，应用配置！</p>
 <p>开发 — 运维。 问题：我在我的电脑上可以允许！版本更新，导致服务不可用！对于运维来说考验十分大？</p>
@@ -665,9 +661,7 @@
 <h5 id="镜像下载"><a href="#镜像下载" class="headerlink" title="镜像下载"></a>镜像下载</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>docker中下载centos</span><br><span class="line">docker pull centos</span><br><span class="line"></span><br><span class="line">docker run 镜像id #新建容器并启动</span><br><span class="line"></span><br><span class="line">docker ps 列出所有运行的容器 docker container list</span><br><span class="line"></span><br><span class="line">docker rm 容器id #删除指定容器</span><br><span class="line"></span><br><span class="line">docker start 容器id	#启动容器</span><br><span class="line">docker restart 容器id	#重启容器</span><br><span class="line">docker stop 容器id	#停止当前正在运行的容器</span><br><span class="line">docker kill 容器id	#强制停止当前容器</span><br><span class="line"></span><br><span class="line">[root@iz2zeak7sgj6i7hrb2g862z ~]# docker container list  #h和docker ps相同</span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/20200522092043553.png#pic_center" alt="在这里插入图片描述"></p>
 <h5 id="新建容器并启动"><a href="#新建容器并启动" class="headerlink" title="新建容器并启动"></a>新建容器并启动</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">docker run [可选参数] image | docker container run [可选参数] image </span><br><span class="line"><span class="meta">#</span>参书说明</span><br><span class="line">--name="Name"		#容器名字 tomcat01 tomcat02 用来区分容器</span><br><span class="line">-d					#后台方式运行</span><br><span class="line">-it 				#使用交互方式运行，进入容器查看内容</span><br><span class="line">-p					#指定容器的端口 -p 8080(宿主机):8080(容器)</span><br><span class="line">		-p ip:主机端口:容器端口</span><br><span class="line">		-p 主机端口:容器端口(常用)</span><br><span class="line">		-p 容器端口</span><br><span class="line">		容器端口</span><br><span class="line">-P(大写) 				随机指定端口</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 测试、启动并进入容器</span><br><span class="line">[root@iz2zeak7sgj6i7hrb2g</span><br><span class="line">[root@iz2zeak7sgj6i7hrb2g862z ~]# docker run -it centos /bin/bash</span><br><span class="line">[root@241b5abce65e /]# ls</span><br><span class="line">bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var</span><br><span class="line">[root@241b5abce65e /]# exit #从容器退回主机</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200522093429405.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU5MTk4MA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <h5 id="列出所有运行的容器"><a href="#列出所有运行的容器" class="headerlink" title="列出所有运行的容器"></a>列出所有运行的容器</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker ps 命令  		#列出当前正在运行的容器</span><br><span class="line">  -a, --all     	 #列出当前正在运行的容器 + 带出历史运行过的容器</span><br><span class="line">  -n=?, --last int   #列出最近创建的?个容器 ?为1则只列出最近创建的一个容器,为2则列出2个</span><br><span class="line">  -q, --quiet        #只列出容器的编号</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200522093522617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU5MTk4MA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200522093522598.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU5MTk4MA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h5 id="退出容器"><a href="#退出容器" class="headerlink" title="退出容器"></a>退出容器</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exit 		#直接停止容器退出</span><br><span class="line">ctrl +P +Q  #容器不停止退出 	---注意：这个很有用的操作</span><br></pre></td></tr></table></figure>
 <h5 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker rm 容器id   				#删除指定的容器，不能删除正在运行的容器，如果要强制删除 rm -rf</span><br><span class="line">docker rm -f $(docker ps -aq)  	 #删除所有的容器</span><br><span class="line">docker ps -a -q|xargs docker rm  #删除所有的容器</span><br></pre></td></tr></table></figure>
 <h5 id="启动和停止容器的操作"><a href="#启动和停止容器的操作" class="headerlink" title="启动和停止容器的操作"></a>启动和停止容器的操作</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker start 容器id	#启动容器</span><br><span class="line">docker restart 容器id	#重启容器</span><br><span class="line">docker stop 容器id	#停止当前正在运行的容器</span><br><span class="line">docker kill 容器id	#强制停止当前容器</span><br></pre></td></tr></table></figure>
